@@ -31,7 +31,7 @@ $color-sidebar-bckg: rgb(241, 241, 241);
 
 .nav-menu.active {
   left: 0;
-  transition: 350ms;
+  transition: 300ms;
 }
 
 .nav-text {
@@ -52,7 +52,7 @@ $color-sidebar-bckg: rgb(241, 241, 241);
   display: flex;
   align-items: center;
   padding: 0 16px;
-  border-radius: 4px;
+  border-radius: 1rem;
   color: $color-black;
   background-color: $color-sidebar-bckg;
 }
