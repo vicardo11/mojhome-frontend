@@ -1,7 +1,8 @@
 @import '../../scss/variables';
 
+$color-sidebar-bckg: rgb(241, 241, 241);
+
 .sidebar {
-  background-color: map-get($colors-beige, "beige-500");
   height: 80px;
   display: flex;
   justify-content: start;
@@ -12,11 +13,11 @@
   margin-left: 2rem;
   font-size: 2rem;
   background: none;
-  color: map-get($colors-gray, "gray-600");
+  color: $color-black;
 }
 
 .nav-menu {
-  background-color: map-get($colors-beige, "beige-500");
+  background-color: $color-sidebar-bckg;
   width: 250px;
   height: 100vh;
   display: flex;
@@ -25,6 +26,7 @@
   top: 0;
   left: -100%;
   transition: 850ms;
+  box-shadow: 8px 0 5px $color-gray-shadow;
 }
 
 .nav-menu.active {
@@ -39,6 +41,7 @@
   padding: 8px 0 8px 16px;
   list-style-type: none;
   height: 60px;
+  background-color: $color-sidebar-bckg;
 }
 
 .nav-text a {
@@ -50,18 +53,22 @@
   align-items: center;
   padding: 0 16px;
   border-radius: 4px;
+  color: $color-black;
+  background-color: $color-sidebar-bckg;
 }
 
-.nav-text a:hover {
-  background-color: blue;
+.nav-text:hover a, .nav-text:hover span {
+  transition: 450ms;
+  background-color: $color-main-background;
 }
 
 .nav-menu-items {
+  background-color: $color-sidebar-bckg;
   width: 100%;
 }
 
 .navbar-toggle {
-  background-color: map-get($colors-beige, "beige-500");
+  background-color: $color-sidebar-bckg;
   width: 100%;
   height: 80px;
   display: flex;
@@ -71,4 +78,5 @@
 
 span {
   margin-left: 16px;
+  background-color: $color-sidebar-bckg;
 }
