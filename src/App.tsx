@@ -1,11 +1,18 @@
-import React from 'react';
-import './App.css';
+import React from "react";
+import Sidebar from "./components/sidebar/Sidebar";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import Home from "./pages/Home";
+import Finances from "./pages/Finances";
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+    <BrowserRouter>
+      <Sidebar />
+      <Routes>
+        <Route path="/" Component={Home} />
+        <Route path="/finances" Component={Finances} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
