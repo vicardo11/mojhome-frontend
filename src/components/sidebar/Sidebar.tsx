@@ -1,45 +1,26 @@
-import React, { useState } from "react";
+import React from "react";
 import "./Sidebar.scss";
 import { Link } from "react-router-dom";
-import * as FaIcons from "react-icons/fa";
-import * as AiIcons from "react-icons/ai";
 import { SidebarData } from "./SidebarData";
-import { IconContext } from "react-icons";
 
 const Sidebar = () => {
-  const [sidebar, setSidebar] = useState(false);
-
-  const showSidebar = () => setSidebar(!sidebar);
-
   return (
-    <IconContext.Provider value={{ className: "menu-bars" }}>
-      <div className="sidebar">
-        <Link to="#" className="menu-bars">
-          <FaIcons.FaBars onClick={showSidebar} />
-        </Link>
-      </div>
-      <nav className={sidebar ? "nav-menu active" : "nav-menu"}>
-        <ul onClick={showSidebar} className="nav-menu-items">
-          <li className="navbar-toggle">
-            <Link to="#" className="menu-bars">
-              <AiIcons.AiOutlineClose />
-            </Link>
-          </li>
-          {SidebarData.map((item, index) => {
-            const Icon = item.icon;
+    <nav className="nav-menu">
+      <ul className="nav-menu-items">
+        {SidebarData.map((item, index) => {
+          const Icon = item.icon;
 
-            return (
-              <li key={index} className={item.cName}>
-                <Link to={item.path}>
-                  <Icon />
-                  <span>{item.title}</span>
-                </Link>
-              </li>
-            );
-          })}
-        </ul>
-      </nav>
-    </IconContext.Provider>
+          return (
+            <li key={index} className={item.cName}>
+              <Link to={item.path}>
+                <Icon />
+                <span>{item.title}</span>
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    </nav>
   );
 };
 
