@@ -1,10 +1,11 @@
 import React from "react";
+import Page from "../Page";
 
 const Home = () => {
   return (
-    <>
-      <h1>HOME</h1>
-    </>
+    <Page title="Home">
+      <div>TABLE</div>
+    </Page>
   );
 };
 

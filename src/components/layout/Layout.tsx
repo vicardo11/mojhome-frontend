@@ -2,11 +2,7 @@ import React from "react";
 import Sidebar from "../sidebar/Sidebar";
 import "./Layout.scss";
 
-interface Props {
-  children: React.ReactNode;
-}
-
-const Layout: React.FunctionComponent<Props> = (props: Props) => {
+const Layout = (props: Props) => {
   return (
     <div className="layout-wrapper">
       <div className="layout-navigation">
@@ -16,5 +12,9 @@ const Layout: React.FunctionComponent<Props> = (props: Props) => {
     </div>
   );
 };
+
+interface Props {
+  children: React.ReactNode;
+}
 
 export default Layout;

@@ -1,10 +1,11 @@
 import React from "react";
+import Page from "../Page";
 
 const Finances = () => {
   return (
-    <>
-      <h1>FINANCES</h1>
-    </>
+    <Page title="Finances">
+      <div>Finances</div>
+    </Page>
   );
 };
 
