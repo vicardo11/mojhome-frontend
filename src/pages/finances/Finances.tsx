@@ -1,10 +1,11 @@
 import React from "react";
 import Page from "../Page";
+import Table from "../../components/table/Table";
 
 const Finances = () => {
   return (
     <Page title="Finances">
-      <div>Finances</div>
+      <Table title="Finances" />
     </Page>
   );
 };

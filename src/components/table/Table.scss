@@ -1,0 +1,33 @@
+@import "src/scss/variables";
+
+table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  box-shadow: 10px 10px 5px $color-gray-shadow;
+}
+th {
+  background-color: rgb(140 140 140);
+  color: #FFFFFF;
+}
+th, td {
+  padding: 10px;
+  border: 1px solid rgb(140 140 140);
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+/* required css to make rounded table (below) */
+tr:first-child th:first-child {
+  border-top-left-radius: 10px;
+}
+tr:first-child th:last-child {
+  border-top-right-radius: 10px;
+}
+tr:last-child td:first-child {
+  border-bottom-left-radius: 10px;
+}
+tr:last-child td:last-child {
+  border-bottom-right-radius: 10px;
+}
