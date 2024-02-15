@@ -1,0 +1,92 @@
+export default [
+  {
+    id: 1,
+    type: "Groceries",
+    amount: 50.25,
+    date: "2024-02-15",
+  },
+  {
+    id: 2,
+    type: "Transportation",
+    amount: 30.5,
+    date: "2024-02-14",
+  },
+  {
+    id: 3,
+    type: "Dining Out",
+    amount: 75.75,
+    date: "2024-02-13",
+  },
+  {
+    id: 4,
+    type: "Utilities",
+    amount: 100,
+    date: "2024-02-12",
+  },
+  {
+    id: 5,
+    type: "Entertainment",
+    amount: 45.0,
+    date: "2024-02-11",
+  },
+  {
+    id: 6,
+    type: "Groceries",
+    amount: 60.3,
+    date: "2024-02-10",
+  },
+  {
+    id: 7,
+    type: "Transportation",
+    amount: 25.75,
+    date: "2024-02-09",
+  },
+  {
+    id: 8,
+    type: "Dining Out",
+    amount: 80.5,
+    date: "2021-02-08",
+  },
+  {
+    id: 9,
+    type: "Utilities",
+    amount: 120.75,
+    date: "2024-03-07",
+  },
+  {
+    id: 10,
+    type: "Entertainment",
+    amount: 55.2,
+    date: "2023-02-06",
+  },
+  {
+    id: 11,
+    type: "Groceries",
+    amount: 70.4,
+    date: "2021-02-05",
+  },
+  {
+    id: 12,
+    type: "Transportation",
+    amount: 35.0,
+    date: "2024-02-04",
+  },
+  {
+    id: 13,
+    type: "Dining Out",
+    amount: 90.25,
+    date: "2024-01-03",
+  },
+  {
+    id: 14,
+    type: "Utilities",
+    amount: 130.0,
+    date: "2024-02-02",
+  },
+  {
+    id: 15,
+    type: "Entertainment",
+    amount: 65.75,
+    date: "2024-02-01",
+  },
+];
