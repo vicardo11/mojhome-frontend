@@ -7,7 +7,6 @@ import Layout from "./components/layout/Layout";
 function App() {
   return (
     <BrowserRouter>
-      {/*<Sidebar />*/}
       <Layout>
         <Routes>
           <Route path="/" Component={Home} />
