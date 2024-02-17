@@ -1,6 +1,6 @@
 import React from "react";
 import Page from "../Page";
-import EnhancedTable from "./table/Table";
+import EnhancedTable from "./table/FinancesTable";
 
 const Finances = () => {
   return (

@@ -11,6 +11,7 @@ import TableSortLabel from "@mui/material/TableSortLabel";
 import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
 import { DATA, DataModel, HEAD_CELL_DATA, HeadCell } from "../mock/finances";
+import { Toolbar, Typography } from "@mui/material";
 
 const rows: DataModel[] = DATA;
 
@@ -64,6 +65,26 @@ function EnhancedTableHead(props: Readonly<EnhancedTableProps>) {
   );
 }
 
+function EnhancedTableToolbar() {
+  return (
+    <Toolbar
+      sx={{
+        pl: { sm: 2 },
+        pr: { xs: 1, sm: 1 },
+      }}
+    >
+      <Typography
+        sx={{ flex: "1 1 100%" }}
+        variant="h6"
+        id="tableTitle"
+        component="div"
+      >
+        Finances
+      </Typography>
+    </Toolbar>
+  );
+}
+
 function EnhancedTable() {
   const [order, setOrder] = React.useState<Order>("asc");
   const [orderBy, setOrderBy] = React.useState<string>("calories");
@@ -110,6 +131,7 @@ function EnhancedTable() {
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
+        <EnhancedTableToolbar />
         <TableContainer>
           <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
             <EnhancedTableHead
