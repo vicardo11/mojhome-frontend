@@ -20,7 +20,9 @@ const Layout = (props: Props) => {
           }}
         >
           <Toolbar />
-          <Box>{props.children}</Box>
+          <Box sx={{ mx: { xl: 15, lg: 12, md: 10, sm: 0, xs: 0 } }}>
+            {props.children}
+          </Box>
         </Box>
       </Box>
     </>
