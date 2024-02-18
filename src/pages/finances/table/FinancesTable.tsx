@@ -133,7 +133,10 @@ function EnhancedTable() {
       <Paper sx={{ width: "100%", mb: 2 }}>
         <EnhancedTableToolbar />
         <TableContainer>
-          <Table sx={{ minWidth: 750 }} aria-labelledby="tableTitle">
+          <Table
+            sx={{ minWidth: 750, tableLayout: "fixed" }}
+            aria-labelledby="tableTitle"
+          >
             <EnhancedTableHead
               order={order}
               orderBy={orderBy}
