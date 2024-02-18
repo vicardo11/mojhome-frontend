@@ -19,13 +19,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 
 export const DRAWER_WIDTH = 240;
 
-export default function ResponsiveDrawer() {
+function NavBar() {
   const [selectedItem, setSelectedItem] = useState<number>();
   const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
 
   const handleItemClick = (id: number) => {
     setSelectedItem(id);
-    setMobileDrawerOpen(!mobileDrawerOpen);
+    // setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
   const handleDrawerToggle = () => {
@@ -100,7 +100,8 @@ export default function ResponsiveDrawer() {
         <Drawer
           variant="temporary"
           open={mobileDrawerOpen}
-          onClose={handleItemClick}
+          onClick={handleDrawerToggle}
+          onClose={handleDrawerToggle}
           ModalProps={{
             keepMounted: true, // Better open performance on mobile.
           }}
@@ -119,6 +120,7 @@ export default function ResponsiveDrawer() {
           sx={{
             display: { xs: "none", sm: "block" },
             "& .MuiDrawer-paper": {
+              boxSizing: "border-box",
               width: DRAWER_WIDTH,
             },
           }}
@@ -130,3 +132,5 @@ export default function ResponsiveDrawer() {
     </>
   );
 }
+
+export default NavBar;

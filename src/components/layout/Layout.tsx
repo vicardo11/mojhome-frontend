@@ -1,9 +1,9 @@
 import React from "react";
-import NavBar from "../navbar/NavBar";
 import "./Layout.scss";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
+import NavBar from "../navbar/NavBar";
 
 const Layout = (props: Props) => {
   return (
