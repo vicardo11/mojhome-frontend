@@ -3,7 +3,7 @@ import "./Layout.scss";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
-import NavBar from "../navbar/NavBar";
+import NavBar, { DRAWER_WIDTH } from "../navbar/NavBar";
 
 const Layout = (props: Props) => {
   return (
@@ -12,9 +12,11 @@ const Layout = (props: Props) => {
         <CssBaseline />
         <NavBar />
         <Box
+          component="main"
           sx={{
-            m: 3,
-            width: { sm: "100%" },
+            flexGrow: 1,
+            p: 3,
+            width: { sm: `calc(100% - ${DRAWER_WIDTH}px)` },
           }}
         >
           <Toolbar />
