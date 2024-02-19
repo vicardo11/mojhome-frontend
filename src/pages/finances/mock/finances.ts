@@ -1,18 +1,13 @@
 import { FinanceType } from "../../../constants/FinanceType";
+import { TabHeadCellModel } from "../../../components/table/TabHeadCellModel";
+import { TabDataModel } from "../../../components/table/TabDataModel";
 
-export type DataModel = {
+export interface DataModel extends TabDataModel {
   id: number;
   name: string;
   type: FinanceType;
   amount: number;
   date: string;
-};
-
-export interface HeadCell {
-  disablePadding: boolean;
-  id: keyof DataModel;
-  label: string;
-  numeric: boolean;
 }
 
 export const DATA: DataModel[] = [
@@ -123,29 +118,30 @@ export const DATA: DataModel[] = [
   },
 ];
 
-export const HEAD_CELL_DATA: HeadCell[] = [
+export const HEAD_CELL_DATA: TabHeadCellModel[] = [
   {
-    id: "name",
+    id: 1,
     numeric: false,
     disablePadding: false,
-    label: "Name",
+    label: "name",
   },
   {
-    id: "type",
+    id: 2,
     numeric: false,
     disablePadding: false,
-    label: "Type",
+    label: "type",
   },
   {
-    id: "date",
+    id: 3,
     numeric: false,
     disablePadding: false,
-    label: "Date",
+    label: "date",
   },
   {
-    id: "amount",
+    id: 4,
     numeric: true,
     disablePadding: false,
-    label: "Amount",
+    label: "amount",
+    align: "right",
   },
 ];

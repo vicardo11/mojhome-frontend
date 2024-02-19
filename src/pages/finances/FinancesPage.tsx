@@ -1,15 +1,14 @@
-import React from "react";
-import EnhancedTable from "./table/FinancesTable";
 import Box from "@mui/material/Box";
+import CTable from "../../components/table/CTable";
+import { DATA, HEAD_CELL_DATA } from "./mock/finances";
 
 const FinancesPage = () => {
   return (
     <Box>
-      FINANCES
-      <EnhancedTable />
-      <EnhancedTable />
-      <EnhancedTable />
-      <EnhancedTable />
+      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
+      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
+      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
+      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
     </Box>
   );
 };
