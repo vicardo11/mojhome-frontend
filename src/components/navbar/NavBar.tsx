@@ -1,27 +1,26 @@
-import * as React from "react";
+import MenuIcon from "@mui/icons-material/Menu";
+import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
-import { NavBarData } from "./NavBarData";
-import { LogoIcon } from "../logoIcon/LogoIcon";
-import { Link } from "react-router-dom";
-import "./NavBar.scss";
-import { useState } from "react";
-import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
-import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { LogoIcon } from "../logoIcon/LogoIcon";
+import "./NavBar.scss";
+import { NavBarData } from "./NavBarData";
 
 export const DRAWER_WIDTH = 240;
 
 function NavBar() {
   const [selectedItem, setSelectedItem] = useState<number>();
-  const [mobileDrawerOpen, setMobileDrawerOpen] = React.useState(false);
+  const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const handleItemClick = (id: number) => {
     setSelectedItem(id);

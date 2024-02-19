@@ -1,4 +1,3 @@
-import React from "react";
 import "./Layout.scss";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";

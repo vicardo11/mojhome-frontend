@@ -1,5 +1,6 @@
-import React from "react";
+import { Toolbar, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
+import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -8,10 +9,9 @@ import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
 import TableSortLabel from "@mui/material/TableSortLabel";
-import Paper from "@mui/material/Paper";
 import { visuallyHidden } from "@mui/utils";
+import { useMemo, useState } from "react";
 import { DATA, DataModel, HEAD_CELL_DATA, HeadCell } from "../mock/finances";
-import { Toolbar, Typography } from "@mui/material";
 
 const rows: DataModel[] = DATA;
 
@@ -86,10 +86,10 @@ function EnhancedTableToolbar() {
 }
 
 function EnhancedTable() {
-  const [order, setOrder] = React.useState<Order>("asc");
-  const [orderBy, setOrderBy] = React.useState<string>("calories");
-  const [page, setPage] = React.useState(0);
-  const [rowsPerPage, setRowsPerPage] = React.useState(5);
+  const [order, setOrder] = useState<Order>("asc");
+  const [orderBy, setOrderBy] = useState<string>("calories");
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   const handleRequestSort = (
     event: React.MouseEvent<unknown>,
@@ -119,7 +119,7 @@ function EnhancedTable() {
   const emptyRows =
     page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
-  const visibleRows = React.useMemo(
+  const visibleRows = useMemo(
     () =>
       stableSort(rows, getComparator(order, orderBy)).slice(
         page * rowsPerPage,
