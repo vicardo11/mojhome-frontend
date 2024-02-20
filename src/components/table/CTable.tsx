@@ -22,6 +22,7 @@ interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
   data: T[];
   headCells: R[];
+  onRowSelected: (id: number) => void;
 }
 
 interface EnhancedTableHead<
@@ -60,7 +61,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
   };
 
   const handleClick = (id: number) => {
-    console.log(`Selected row ${id}`);
+    props.onRowSelected(id);
   };
 
   const handleChangePage = (event: unknown, newPage: number) => {
