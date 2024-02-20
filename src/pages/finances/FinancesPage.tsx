@@ -6,9 +6,6 @@ const FinancesPage = () => {
   return (
     <Box>
       <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
-      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
-      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
-      <CTable title="Finances" data={DATA} headCells={HEAD_CELL_DATA} />
     </Box>
   );
 };

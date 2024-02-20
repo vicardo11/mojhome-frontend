@@ -82,7 +82,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
       page * rowsPerPage,
       page * rowsPerPage + rowsPerPage,
     );
-  }, [order, orderBy, page, rowsPerPage]);
+  }, [order, orderBy, page, rows, rowsPerPage]);
 
   return (
     <Box sx={{ width: "100%" }}>
@@ -125,9 +125,9 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
                     key={row.id}
                     sx={{ cursor: "pointer" }}
                   >
-                    {props.headCells.map((cell) => {
+                    {props.headCells.map((cell, index) => {
                       return (
-                        <TableCell align={cell.align} key={row.id}>
+                        <TableCell align={cell.align} key={index}>
                           {row[cell.label]}
                         </TableCell>
                       );
