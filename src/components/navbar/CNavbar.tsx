@@ -13,18 +13,17 @@ import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { CLogoIcon } from "../logoIcon/CLogoIcon";
-import "./CNavBar.scss";
-import { NavBarData } from "./NavBarData";
+import "./CNavbar.scss";
+import { NavbarItemModel } from "./NavbarItemModel";
 
 export const DRAWER_WIDTH = 240;
 
-function CNavBar() {
+function CNavbar(props: Props) {
   const [selectedItem, setSelectedItem] = useState<number>();
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
   const handleItemClick = (id: number) => {
     setSelectedItem(id);
-    // setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
   const handleDrawerToggle = () => {
@@ -38,7 +37,7 @@ function CNavBar() {
       </Box>
       <Divider />
       <List>
-        {NavBarData.map((item) => {
+        {props.navbarItems.map((item) => {
           const ItemIcon = item.icon;
           return (
             <ListItem
@@ -132,4 +131,8 @@ function CNavBar() {
   );
 }
 
-export default CNavBar;
+interface Props {
+  navbarItems: NavbarItemModel[];
+}
+
+export default CNavbar;

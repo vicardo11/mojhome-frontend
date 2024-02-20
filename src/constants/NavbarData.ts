@@ -1,7 +1,7 @@
 import { AiFillHome } from "react-icons/ai";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 
-export const NavBarData = [
+export const NAVBAR_DATA = [
   {
     id: 1,
     title: "Home",
