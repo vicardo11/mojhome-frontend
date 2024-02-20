@@ -17,6 +17,7 @@ import { useMemo, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/StringUtils";
 import { TabDataModel } from "./TabDataModel";
 import { TabHeadCellModel } from "./TabHeadCellModel";
+import "./CTable.scss";
 
 interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
@@ -99,6 +100,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
             variant="h6"
             id="tableTitle"
             component="div"
+            className="table-title"
           >
             {props.title}
           </Typography>
