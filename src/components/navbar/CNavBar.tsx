@@ -12,13 +12,13 @@ import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { LogoIcon } from "../logoIcon/LogoIcon";
-import "./NavBar.scss";
+import { CLogoIcon } from "../logoIcon/CLogoIcon";
+import "./CNavBar.scss";
 import { NavBarData } from "./NavBarData";
 
 export const DRAWER_WIDTH = 240;
 
-function NavBar() {
+function CNavBar() {
   const [selectedItem, setSelectedItem] = useState<number>();
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
 
@@ -34,7 +34,7 @@ function NavBar() {
   const drawerItems = (
     <div>
       <Box className="brand">
-        <LogoIcon />
+        <CLogoIcon />
       </Box>
       <Divider />
       <List>
@@ -132,4 +132,4 @@ function NavBar() {
   );
 }
 
-export default NavBar;
+export default CNavBar;

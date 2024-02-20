@@ -1,15 +1,15 @@
-import "./Layout.scss";
+import "./CLayout.scss";
 import Box from "@mui/material/Box";
 import CssBaseline from "@mui/material/CssBaseline";
 import Toolbar from "@mui/material/Toolbar";
-import NavBar, { DRAWER_WIDTH } from "../navbar/NavBar";
+import CNavBar, { DRAWER_WIDTH } from "../navbar/CNavBar";
 
-const Layout = (props: Props) => {
+const CLayout = (props: Props) => {
   return (
     <>
       <Box sx={{ display: { sm: "flex", xs: "block" } }}>
         <CssBaseline />
-        <NavBar />
+        <CNavBar />
         <Box
           component="main"
           sx={{
@@ -32,4 +32,4 @@ interface Props {
   children: React.ReactNode;
 }
 
-export default Layout;
+export default CLayout;
