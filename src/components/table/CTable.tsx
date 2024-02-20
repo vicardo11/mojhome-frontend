@@ -131,7 +131,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
                     {props.headCells.map((cell, index) => {
                       return (
                         <TableCell align={cell.align} key={index}>
-                          {row[cell.label]}
+                          {convertToTabValue(row[cell.label])}
                         </TableCell>
                       );
                     })}
@@ -191,6 +191,20 @@ function CTableHead<T extends TabHeadCellModel, R extends TabDataModel>(
       </TableRow>
     </TableHead>
   );
+}
+
+function convertToTabValue(rowElement: any): string | number {
+  const type = typeof rowElement;
+  switch (type) {
+    case "string":
+      return rowElement as string;
+    case "number":
+      return rowElement as number;
+    case "object":
+      return (rowElement as Date).toLocaleDateString();
+    default:
+      return "";
+  }
 }
 
 export default CTable;
