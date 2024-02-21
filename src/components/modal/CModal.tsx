@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Modal, Typography } from "@mui/material";
 import "./CModal.scss";
 
 function CModal(props: Props) {
@@ -17,16 +17,6 @@ function CModal(props: Props) {
           {props.title}
         </Typography>
         {props.children}
-        <Box
-          sx={{ pt: 5, display: "flex", justifyContent: "flex-end", gap: 3 }}
-        >
-          <Button onClick={props.onClose}>
-            {props.submitButtonLabel || "Cancel"}
-          </Button>
-          <Button onClick={props.onSubmit} variant="contained">
-            {props.submitButtonLabel || "Submit"}
-          </Button>
-        </Box>
       </Box>
     </Modal>
   );
@@ -36,10 +26,7 @@ interface Props {
   title: string;
   open: boolean;
   onClose: () => void;
-  onSubmit: () => void;
   children: React.ReactNode;
-  cancelButtonLabel?: string;
-  submitButtonLabel?: string;
 }
 
 export default CModal;
