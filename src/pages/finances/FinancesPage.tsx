@@ -36,6 +36,7 @@ const FinancesPage = () => {
 
   function handleFinanceEditModalClosed() {
     setIsFinanceEditModalOpen(false);
+    setErrors(new Map());
   }
 
   const handleSubmit = (e: React.FormEvent) => {
