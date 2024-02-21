@@ -20,6 +20,7 @@ const FinancesPage = () => {
 
   function handleRowSelected(id: number) {
     setSelectedFinanceRecord(DATA.find((record) => record.id === id));
+    setFormData(selectedFinanceRecord);
     setIsFinanceEditModalOpen(true);
   }
 
