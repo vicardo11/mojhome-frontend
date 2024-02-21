@@ -14,7 +14,6 @@ export const DATA: FinanceRecord[] = [
     name: "Transportation",
     type: FinanceType.EXPENSE,
     amount: 30.5,
-    date: new Date("2024-02-14"),
   },
   {
     id: 3,
