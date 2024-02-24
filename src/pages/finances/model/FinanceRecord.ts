@@ -2,7 +2,7 @@ import { TabDataModel } from "../../../components/table/TabDataModel";
 import { FinanceType } from "../../../types/FinanceType";
 
 export interface FinanceRecord extends TabDataModel {
-  id: number;
+  id: string;
   name: string;
   type: FinanceType;
   amount: number;

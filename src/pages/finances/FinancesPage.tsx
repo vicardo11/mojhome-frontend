@@ -10,7 +10,7 @@ const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
 
-  function handleRowSelected(id: number) {
+  function handleRowSelected(id: string) {
     setSelectedFinanceRecord(DATA.find((record) => record.id === id));
     setIsEditFinanceModalOpen(true);
   }

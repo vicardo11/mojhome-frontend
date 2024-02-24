@@ -23,13 +23,10 @@ interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
   data: T[];
   headCells: R[];
-  onRowSelected: (id: number) => void;
+  onRowSelected: (id: string) => void;
 }
 
-interface EnhancedTableHead<
-  T extends TabHeadCellModel,
-  R extends TabDataModel,
-> {
+interface EnhancedTableHead<T extends TabHeadCellModel, R extends TabDataModel> {
   onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
   order: Order;
   orderBy: keyof R;
@@ -42,26 +39,21 @@ enum Order {
   DESC = "desc",
 }
 
-function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
-  props: TableProps<T, R>,
-) {
+function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: TableProps<T, R>) {
   const [order, setOrder] = useState<Order>(Order.ASC);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [orderBy, setOrderBy] = useState<string>("");
   const rows = props.data;
 
-  const handleRequestSort = (
-    event: React.MouseEvent<unknown>,
-    property: string,
-  ) => {
+  const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
     property = property.toLowerCase();
     const isAsc = orderBy === property && order === Order.ASC;
     setOrder(isAsc ? Order.DESC : Order.ASC);
     setOrderBy(property);
   };
 
-  const handleClick = (id: number) => {
+  const handleClick = (id: string) => {
     props.onRowSelected(id);
   };
 
@@ -69,15 +61,12 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
     setPage(newPage);
   };
 
-  const handleChangeRowsPerPage = (
-    event: React.ChangeEvent<HTMLInputElement>,
-  ) => {
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
 
-  const emptyRows =
-    page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
+  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
 
   const visibleRows = useMemo(() => {
     return lodashOrderBy(rows, [orderBy], [order]).slice(
@@ -106,10 +95,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(
           </Typography>
         </Toolbar>
         <TableContainer>
-          <Table
-            sx={{ minWidth: 750, tableLayout: "fixed" }}
-            aria-labelledby="tableTitle"
-          >
+          <Table sx={{ minWidth: 750, tableLayout: "fixed" }} aria-labelledby="tableTitle">
             <CTableHead
               order={order}
               orderBy={orderBy}
@@ -164,10 +150,9 @@ function CTableHead<T extends TabHeadCellModel, R extends TabDataModel>(
   props: EnhancedTableHead<T, R>,
 ) {
   const { order, orderBy, onRequestSort } = props;
-  const createSortHandler =
-    (property: string) => (event: React.MouseEvent<unknown>) => {
-      onRequestSort(event, property);
-    };
+  const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
+    onRequestSort(event, property);
+  };
 
   return (
     <TableHead>

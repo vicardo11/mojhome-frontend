@@ -1,4 +1,4 @@
 export interface TabDataModel {
   [key: string]: any;
-  id: number;
+  id: string;
 }
