@@ -15,7 +15,7 @@ import { Link } from "react-router-dom";
 import { CLogoIcon } from "../logoIcon/CLogoIcon";
 import "./CNavbar.scss";
 import { NavbarItemModel } from "./NavbarItemModel";
-import { Placement } from "../../types/Placemenet";
+import { Placement } from "../../types/Placement";
 
 export const DRAWER_WIDTH = 240;
 

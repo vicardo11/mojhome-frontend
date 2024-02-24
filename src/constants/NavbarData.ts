@@ -1,7 +1,7 @@
 import { AiFillHome } from "react-icons/ai";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
-import { Placement } from "../types/Placemenet";
+import { Placement } from "../types/Placement";
 
 export const NAVBAR_DATA = [
   {
