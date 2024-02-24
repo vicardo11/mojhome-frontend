@@ -1,19 +1,17 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "./pages/home/HomePage";
-import FinancesPage from "./pages/finances/FinancesPage";
 import CLayout from "./components/layout/CLayout";
 import { NAVBAR_DATA } from "./constants/NavbarData";
-import SettingsPage from "./pages/settings/SettingsPage";
+import { ROUTES } from "./constants/Routes";
 
 function App() {
   return (
     <BrowserRouter>
       <CLayout navbarItems={NAVBAR_DATA}>
         <Routes>
-          <Route path="/" Component={HomePage} />
-          <Route path="/finances" Component={FinancesPage} />
-          <Route path="/settings" Component={SettingsPage} />
+          {ROUTES.map((route) => (
+            <Route key={route.id} path={route.path} Component={route.component} />
+          ))}
         </Routes>
       </CLayout>
     </BrowserRouter>
