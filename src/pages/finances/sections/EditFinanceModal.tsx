@@ -1,5 +1,5 @@
 import { Button, FormControl, Grid, MenuItem, TextField } from "@mui/material";
-import { FinanceType } from "../../../constants/FinanceType";
+import { FinanceType } from "../../../types/FinanceType";
 import { DatePicker, LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs, { Dayjs } from "dayjs";

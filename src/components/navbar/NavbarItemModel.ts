@@ -1,4 +1,5 @@
 import { IconType } from "react-icons";
+import { Placement } from "../../types/Placemenet";
 
 export interface NavbarItemModel {
   id: number;
@@ -6,4 +7,5 @@ export interface NavbarItemModel {
   path: string;
   icon: IconType;
   cName: string;
+  placement: Placement;
 }

@@ -15,6 +15,7 @@ import { Link } from "react-router-dom";
 import { CLogoIcon } from "../logoIcon/CLogoIcon";
 import "./CNavbar.scss";
 import { NavbarItemModel } from "./NavbarItemModel";
+import { Placement } from "../../types/Placemenet";
 
 export const DRAWER_WIDTH = 240;
 
@@ -30,38 +31,57 @@ function CNavbar(props: Props) {
     setMobileDrawerOpen(!mobileDrawerOpen);
   };
 
+  function getListItem(item: NavbarItemModel) {
+    const ItemIcon = item.icon;
+    return (
+      <ListItem
+        component={Link}
+        to={item.path}
+        key={item.id}
+        disablePadding
+        onClick={() => handleItemClick(item.id)}
+        className={"navbar-list-item " + (selectedItem === item.id ? "selected-item" : "")}
+      >
+        <ListItemButton disableTouchRipple sx={{ pl: 2 }}>
+          <ListItemIcon>
+            <ItemIcon />
+          </ListItemIcon>
+          <ListItemText primary={item.title} />
+        </ListItemButton>
+      </ListItem>
+    );
+  }
+
   const drawerItems = (
-    <div>
+    <>
       <Box className="brand">
         <CLogoIcon />
       </Box>
       <Divider />
-      <List>
-        {props.navbarItems.map((item) => {
-          const ItemIcon = item.icon;
-          return (
-            <ListItem
-              component={Link}
-              to={item.path}
-              key={item.id}
-              disablePadding
-              onClick={() => handleItemClick(item.id)}
-              className={
-                "navbar-list-item " +
-                (selectedItem === item.id ? "selected-item" : "")
-              }
-            >
-              <ListItemButton disableTouchRipple sx={{ pl: 2 }}>
-                <ListItemIcon>
-                  <ItemIcon />
-                </ListItemIcon>
-                <ListItemText primary={item.title} />
-              </ListItemButton>
-            </ListItem>
-          );
-        })}
+      <List
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexFlow: "column",
+          justifyContent: "space-between",
+        }}
+      >
+        <Box>
+          {props.navbarItems
+            .filter((el) => el.placement === Placement.TOP)
+            .map((item) => {
+              return getListItem(item);
+            })}
+        </Box>
+        <Box sx={{ pb: 2 }}>
+          {props.navbarItems
+            .filter((el) => el.placement === Placement.BOTTOM)
+            .map((item) => {
+              return getListItem(item);
+            })}
+        </Box>
       </List>
-    </div>
+    </>
   );
 
   function TopBar() {

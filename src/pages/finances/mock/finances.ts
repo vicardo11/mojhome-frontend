@@ -1,4 +1,4 @@
-import { FinanceType } from "../../../constants/FinanceType";
+import { FinanceType } from "../../../types/FinanceType";
 import { FinanceRecord } from "../model/FinanceRecord";
 
 export const DATA: FinanceRecord[] = [

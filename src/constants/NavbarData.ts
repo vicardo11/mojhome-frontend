@@ -1,5 +1,7 @@
 import { AiFillHome } from "react-icons/ai";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
+import { IoSettingsOutline } from "react-icons/io5";
+import { Placement } from "../types/Placemenet";
 
 export const NAVBAR_DATA = [
   {
@@ -8,6 +10,7 @@ export const NAVBAR_DATA = [
     path: "/",
     icon: AiFillHome,
     cName: "nav-text",
+    placement: Placement.TOP,
   },
   {
     id: 2,
@@ -15,5 +18,14 @@ export const NAVBAR_DATA = [
     path: "/finances",
     icon: RiMoneyDollarCircleLine,
     cName: "nav-text",
+    placement: Placement.TOP,
+  },
+  {
+    id: 3,
+    title: "Settings",
+    path: "/settings",
+    icon: IoSettingsOutline,
+    cName: "nav-text",
+    placement: Placement.BOTTOM,
   },
 ];

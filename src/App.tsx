@@ -4,6 +4,7 @@ import HomePage from "./pages/home/HomePage";
 import FinancesPage from "./pages/finances/FinancesPage";
 import CLayout from "./components/layout/CLayout";
 import { NAVBAR_DATA } from "./constants/NavbarData";
+import SettingsPage from "./pages/settings/SettingsPage";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" Component={HomePage} />
           <Route path="/finances" Component={FinancesPage} />
+          <Route path="/settings" Component={SettingsPage} />
         </Routes>
       </CLayout>
     </BrowserRouter>
