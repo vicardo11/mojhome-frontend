@@ -1,6 +1,7 @@
 import { AiFillHome } from "react-icons/ai";
 import { RiMoneyDollarCircleLine } from "react-icons/ri";
 import { IoSettingsOutline } from "react-icons/io5";
+import { IoBugOutline } from "react-icons/io5";
 import { Placement } from "../types/Placement";
 
 export const NAVBAR_DATA = [
@@ -25,6 +26,14 @@ export const NAVBAR_DATA = [
     title: "Settings",
     path: "/settings",
     icon: IoSettingsOutline,
+    cName: "nav-text",
+    placement: Placement.BOTTOM,
+  },
+  {
+    id: 4,
+    title: "Report a bug",
+    path: "/report-bug",
+    icon: IoBugOutline,
     cName: "nav-text",
     placement: Placement.BOTTOM,
   },

@@ -2,6 +2,7 @@ import HomePage from "../pages/home/HomePage";
 import FinancesPage from "../pages/finances/FinancesPage";
 import SettingsPage from "../pages/settings/SettingsPage";
 import React from "react";
+import ReportBugPage from "../pages/report-bug/ReportBugPage";
 
 export const ROUTES: RouteModel[] = [
   {
@@ -21,6 +22,12 @@ export const ROUTES: RouteModel[] = [
     title: "Settings",
     path: "/settings",
     component: SettingsPage,
+  },
+  {
+    id: 4,
+    title: "Report a bug",
+    path: "/report-bug",
+    component: ReportBugPage,
   },
 ];
 
