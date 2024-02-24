@@ -1,17 +1,26 @@
 import Box from "@mui/material/Box";
 import CTable from "../../components/table/CTable";
-import { DATA } from "./mock/finances";
 import { FINANCE_TABLE_MODEL } from "./model/FinanceTableModel";
 import EditFinanceModal from "./sections/EditFinanceModal";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FinanceRecord } from "./model/FinanceRecord";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
+  const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
+
+  useEffect(() => {
+    fetch("http://localhost:8080/finances")
+      .then((response) => response.json())
+      .then((data) => setFinanceRecords(data))
+      .catch((err) => {
+        console.log(err.message);
+      });
+  }, []);
 
   function handleRowSelected(id: string) {
-    setSelectedFinanceRecord(DATA.find((record) => record.id === id));
+    setSelectedFinanceRecord(financeRecords.find((record) => record.id === id));
     setIsEditFinanceModalOpen(true);
   }
 
@@ -23,7 +32,7 @@ const FinancesPage = () => {
     <Box>
       <CTable
         title="Finances"
-        data={DATA}
+        data={financeRecords}
         headCells={FINANCE_TABLE_MODEL}
         onRowSelected={handleRowSelected}
       />
