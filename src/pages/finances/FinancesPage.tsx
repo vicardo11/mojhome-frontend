@@ -4,22 +4,18 @@ import { FINANCE_TABLE_MODEL } from "./model/FinanceTableModel";
 import EditFinanceModal from "./sections/EditFinanceModal";
 import { useEffect, useState } from "react";
 import { FinanceRecord } from "./model/FinanceRecord";
-import { useAuth } from "react-oidc-context";
+import useAxios from "../../hooks/useAxios";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
   const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
-  const auth = useAuth();
+  const axios = useAxios();
 
   useEffect(() => {
-    fetch("http://localhost:8200/api/secured/finances", {
-      headers: {
-        Authorization: "Bearer " + auth.user?.access_token,
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => setFinanceRecords(data))
+    axios
+      .get("http://localhost:8200/api/secured/finances")
+      .then((response) => setFinanceRecords(response.data))
       .catch((err) => {
         // handle error
       });
