@@ -17,7 +17,9 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component }) => 
     if (!auth.isAuthenticated && !auth.isLoading && !initialized.current) {
       initialized.current = true;
       // auth.signinPopup();
-      auth.signinRedirect({ redirect_uri: "http://localhost:3000/" + location.pathname });
+      auth.signinRedirect({
+        redirect_uri: "http://localhost:3000/" + location.pathname,
+      });
     }
   }, [auth, auth.isAuthenticated, auth.isLoading]);
 
