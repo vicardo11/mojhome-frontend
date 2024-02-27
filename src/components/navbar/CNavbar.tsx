@@ -10,8 +10,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import Toolbar from "@mui/material/Toolbar";
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useLocation } from "react-router-dom";
 import { CLogoIcon } from "../logoIcon/CLogoIcon";
 import "./CNavbar.scss";
 import { NavbarItemModel } from "./NavbarItemModel";
@@ -22,6 +22,14 @@ export const DRAWER_WIDTH = 240;
 function CNavbar(props: Props) {
   const [selectedItem, setSelectedItem] = useState<number>();
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState(false);
+  const location = useLocation();
+
+  useEffect(() => {
+    const item = props.navbarItems.find((el) => el.path === location.pathname);
+    if (item) {
+      setSelectedItem(item.id);
+    }
+  }, [location.pathname, props.navbarItems]);
 
   const handleItemClick = (id: number) => {
     setSelectedItem(id);
@@ -33,6 +41,7 @@ function CNavbar(props: Props) {
 
   function getListItem(item: NavbarItemModel) {
     const ItemIcon = item.icon;
+    // const path = window.location.pathname;
     return (
       <ListItem
         component={Link}
