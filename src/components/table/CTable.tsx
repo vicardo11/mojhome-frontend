@@ -13,17 +13,19 @@ import {
   Typography,
 } from "@mui/material";
 import { orderBy as lodashOrderBy } from "lodash";
-import { useMemo, useState } from "react";
+import { ReactElement, useMemo, useState } from "react";
 import { capitalizeFirstLetter } from "../../utils/StringUtils";
 import { TabDataModel } from "./TabDataModel";
 import { TabHeadCellModel } from "./TabHeadCellModel";
 import "./CTable.scss";
+import { COLOR_BLUE } from "../../constants/Colors";
 
 interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
   data: T[];
   headCells: R[];
   onRowSelected: (id: string) => void;
+  actionButtons?: ReactElement[];
 }
 
 interface EnhancedTableHead<T extends TabHeadCellModel, R extends TabDataModel> {
@@ -78,22 +80,26 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
-        <Toolbar
-          sx={{
-            pl: { sm: 2 },
-            pr: { xs: 1, sm: 1 },
-          }}
-        >
-          <Typography
-            sx={{ flex: "1 1 100%" }}
-            variant="h6"
-            id="tableTitle"
-            component="div"
-            className="table-title"
+        <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+          <Toolbar
+            sx={{
+              pl: { sm: 2 },
+              pr: { xs: 1, sm: 1 },
+            }}
           >
-            {props.title}
-          </Typography>
-        </Toolbar>
+            <Typography
+              sx={{ flex: "1 1 100%" }}
+              variant="h6"
+              id="tableTitle"
+              component="div"
+              className="table-title"
+              color={COLOR_BLUE}
+            >
+              {props.title}
+            </Typography>
+          </Toolbar>
+          <Box sx={{ my: "auto", pr: 2 }}>{props.actionButtons}</Box>
+        </Box>
         <TableContainer>
           <Table sx={{ minWidth: 750, tableLayout: "fixed" }} aria-labelledby="tableTitle">
             <CTableHead
