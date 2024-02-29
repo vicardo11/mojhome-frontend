@@ -11,7 +11,7 @@ import { FinanceRecord } from "../model/FinanceRecord";
 import { isCorrectAmount } from "../../../utils/NumberUtils";
 
 const EditFinanceModal = (props: Props) => {
-  const [formData, setFormData] = useState<Partial<FinanceRecord> | undefined>();
+  const [formData, setFormData] = useState<Partial<FinanceRecord>>();
   const [errors, setErrors] = useState<Map<string, string>>();
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const EditFinanceModal = (props: Props) => {
     e.preventDefault();
     if (validateForm()) {
       // Form submitted successfully
-      props.onClose();
+      props.onSubmit(formData as FinanceRecord);
     }
   };
 
@@ -54,6 +54,10 @@ const EditFinanceModal = (props: Props) => {
     }
     if (formData?.amount == 0) {
       newErrors.set("amount", "Must be greater than 0");
+    }
+
+    if (!formData?.type) {
+      newErrors.set("type", "Type is required");
     }
 
     setErrors(newErrors);
@@ -100,6 +104,8 @@ const EditFinanceModal = (props: Props) => {
                 label="Type"
                 onChange={handleChange}
                 defaultValue={props.selectedFinanceRecord?.type ?? ""}
+                error={errors?.has("type")}
+                helperText={errors?.get("type")}
               >
                 {Object.entries(FinanceType).map(([key, value]) => (
                   <MenuItem key={key} value={value}>
@@ -112,7 +118,11 @@ const EditFinanceModal = (props: Props) => {
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                defaultValue={dayjs(props.selectedFinanceRecord?.date)}
+                defaultValue={
+                  props.selectedFinanceRecord?.date
+                    ? dayjs(props.selectedFinanceRecord?.date)
+                    : null
+                }
                 sx={{ width: "100%" }}
                 label="Date"
                 name="date"
@@ -135,6 +145,7 @@ const EditFinanceModal = (props: Props) => {
 interface Props {
   selectedFinanceRecord?: FinanceRecord;
   open: boolean;
+  onSubmit: (record: FinanceRecord) => void;
   onClose: () => void;
 }
 

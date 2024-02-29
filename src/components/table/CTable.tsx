@@ -14,11 +14,11 @@ import {
 } from "@mui/material";
 import { orderBy as lodashOrderBy } from "lodash";
 import { ReactElement, useMemo, useState } from "react";
+import { COLOR_BLUE } from "../../constants/Colors";
 import { capitalizeFirstLetter } from "../../utils/StringUtils";
+import "./CTable.scss";
 import { TabDataModel } from "./TabDataModel";
 import { TabHeadCellModel } from "./TabHeadCellModel";
-import "./CTable.scss";
-import { COLOR_BLUE } from "../../constants/Colors";
 
 interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
