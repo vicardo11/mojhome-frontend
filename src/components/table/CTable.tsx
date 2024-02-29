@@ -186,6 +186,7 @@ function CTableHead<T extends TabHeadCellModel, R extends TabDataModel>(
 
 function convertToTabValue(rowElement: any): string | number {
   const type = typeof rowElement;
+  if (rowElement === null || rowElement === undefined) return "";
   switch (type) {
     case "string":
       return rowElement as string;
