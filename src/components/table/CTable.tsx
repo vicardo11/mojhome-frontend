@@ -73,8 +73,6 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
     setPage(0);
   };
 
-  const emptyRows = page > 0 ? Math.max(0, (1 + page) * rowsPerPage - rows.length) : 0;
-
   const visibleRows = useMemo(() => {
     return lodashOrderBy(rows, [orderBy], [order]).slice(
       page * rowsPerPage,
@@ -157,11 +155,6 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
                   </TableRow>
                 );
               })}
-              {emptyRows > 0 && (
-                <TableRow>
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
             </TableBody>
           </Table>
         </TableContainer>
