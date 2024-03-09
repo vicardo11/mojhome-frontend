@@ -6,5 +6,5 @@ export interface FinanceRecord extends TabDataModel {
   name: string;
   type: FinanceType;
   amount: number;
-  date?: Date;
+  date: Date;
 }

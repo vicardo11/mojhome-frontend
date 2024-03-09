@@ -119,11 +119,7 @@ const EditFinanceModal = (props: Props) => {
           <Grid item>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
-                defaultValue={
-                  props.selectedFinanceRecord?.date
-                    ? dayjs(props.selectedFinanceRecord?.date)
-                    : null
-                }
+                defaultValue={dayjs(props.selectedFinanceRecord?.date)}
                 sx={{ width: "100%" }}
                 label="Date"
                 name="date"
