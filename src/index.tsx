@@ -8,9 +8,7 @@ import App from "./App";
 import "./styles/_index.scss";
 import { AuthProvider } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
-import reducer from "./store/reducer";
-import { configureStore } from "@reduxjs/toolkit";
-import { Provider } from "react-redux";
+import { createTheme, ThemeProvider } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -26,14 +24,31 @@ const oidcConfig = {
   automaticSilentRenew: true,
 };
 
-const store = configureStore({ reducer });
+declare module "@mui/material/styles" {
+  interface BreakpointOverrides {
+    laptop: true;
+  }
+}
+
+const theme = createTheme({
+  breakpoints: {
+    values: {
+      xs: 0,
+      sm: 600,
+      md: 900,
+      laptop: 1100,
+      lg: 1200,
+      xl: 1536,
+    },
+  },
+});
 
 root.render(
-  <Provider store={store}>
-    <AuthProvider {...oidcConfig}>
+  <AuthProvider {...oidcConfig}>
+    <ThemeProvider theme={theme}>
       <StrictMode>
         <App />
       </StrictMode>
-    </AuthProvider>
-  </Provider>,
+    </ThemeProvider>
+  </AuthProvider>,
 );

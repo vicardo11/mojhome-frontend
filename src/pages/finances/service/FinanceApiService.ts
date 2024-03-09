@@ -2,7 +2,7 @@ import { Axios } from "axios";
 import { FINANCES_URL } from "../../../constants/Urls";
 import { FinanceRecord } from "../model/FinanceRecord";
 
-export class FinanceService {
+export class FinanceApiService {
   private axios: Axios;
 
   constructor(axios: Axios) {
