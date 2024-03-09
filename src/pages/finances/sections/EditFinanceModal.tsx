@@ -8,7 +8,7 @@ import CModal from "../../../components/modal/CModal";
 import { isEmpty } from "../../../utils/StringUtils";
 import { useEffect, useState } from "react";
 import { FinanceRecord } from "../model/FinanceRecord";
-import { isCorrectAmount } from "../../../utils/NumberUtils";
+import { isCorrectAmountFormat, isGreaterThanZero } from "../../../utils/NumberUtils";
 
 const EditFinanceModal = (props: Props) => {
   const [formData, setFormData] = useState<Partial<FinanceRecord>>();
@@ -50,10 +50,10 @@ const EditFinanceModal = (props: Props) => {
       newErrors.set("name", "Name is required");
     }
 
-    if (!isCorrectAmount(formData?.amount)) {
+    if (!isCorrectAmountFormat(formData?.amount)) {
       newErrors.set("amount", "Maximum of 2 decimal places allowed");
     }
-    if (formData?.amount == 0) {
+    if (!isGreaterThanZero(formData?.amount)) {
       newErrors.set("amount", "Must be greater than 0");
     }
 
