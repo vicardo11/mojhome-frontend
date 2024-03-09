@@ -11,13 +11,19 @@ import { FinanceService } from "./service/FinanceService";
 import { Alert, Box } from "@mui/material";
 import DeleteFinanceModal from "./sections/DeleteFinanceModal";
 import { AxiosResponse } from "axios";
+import { connect, useDispatch, useSelector } from "react-redux";
+import { FinanceState } from "../../store/reducer";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
   const [isDeleteFinanceModalOpen, setIsDeleteFinanceModalOpen] = useState(false);
-  const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
   const [error, setError] = useState<string | null>(null);
+
+  const dispatch = useDispatch();
+  const financeRecords: FinanceRecord[] = useSelector(
+    (state: FinanceState) => state.financeRecords,
+  );
 
   const axios = useAxios();
 
@@ -27,7 +33,7 @@ const FinancesPage = () => {
     financeService
       .getFinances()
       .then((response) => {
-        setFinanceRecords(response.data);
+        dispatch({ type: "SET_RECORDS", records: response.data }); // Dispatch action here
       })
       .catch(handleError);
   }, []);
@@ -57,24 +63,18 @@ const FinancesPage = () => {
 
   function handleCreateResponse() {
     return (response: AxiosResponse) => {
-      const newFinanceRecords = [...financeRecords, response.data];
-      setFinanceRecords(newFinanceRecords);
+      dispatch({ type: "ADD_RECORD", record: response.data }); // Dispatch action here
     };
   }
 
   function handleUpdateResponse(record: FinanceRecord) {
-    return (response: AxiosResponse) => {
-      const newFinanceRecords = financeRecords.map((financeRecord) => {
-        return financeRecord.id === response.data.id ? record : financeRecord;
-      });
-      setFinanceRecords(newFinanceRecords);
-    };
+    return () => dispatch({ type: "UPDATE_RECORD", record });
   }
   function handleDeleteFinanceModalSubmitted() {
     financeService
       .deleteFinance(selectedFinanceRecord!.id)
-      .then((response) => {
-        setFinanceRecords(response.data);
+      .then(() => {
+        dispatch({ type: "REMOVE_RECORD", recordId: selectedFinanceRecord!.id });
       })
       .catch(handleError);
     setIsDeleteFinanceModalOpen(false);
@@ -122,4 +122,10 @@ const FinancesPage = () => {
   );
 };
 
-export default FinancesPage;
+const mapStateToProps = (state: any) => {
+  return {
+    financeRecord: state.financeRecords,
+  };
+};
+
+export default connect(mapStateToProps)(FinancesPage);

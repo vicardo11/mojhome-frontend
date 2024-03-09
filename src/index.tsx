@@ -8,6 +8,9 @@ import App from "./App";
 import "./styles/_index.scss";
 import { AuthProvider } from "react-oidc-context";
 import { WebStorageStateStore } from "oidc-client-ts";
+import reducer from "./store/reducer";
+import { configureStore } from "@reduxjs/toolkit";
+import { Provider } from "react-redux";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
@@ -23,10 +26,14 @@ const oidcConfig = {
   automaticSilentRenew: true,
 };
 
+const store = configureStore({ reducer });
+
 root.render(
-  <AuthProvider {...oidcConfig}>
-    <StrictMode>
-      <App />
-    </StrictMode>
-  </AuthProvider>,
+  <Provider store={store}>
+    <AuthProvider {...oidcConfig}>
+      <StrictMode>
+        <App />
+      </StrictMode>
+    </AuthProvider>
+  </Provider>,
 );
