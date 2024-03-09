@@ -26,7 +26,8 @@ const EditFinanceModal = (props: Props) => {
   };
 
   const handleDateChange = (date: Dayjs | null) => {
-    setFormData({ ...formData, dateOfBirth: date });
+    const newDate = date?.toDate();
+    setFormData({ ...formData, date: newDate });
   };
 
   function handleModalClosed() {
