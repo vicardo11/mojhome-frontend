@@ -9,13 +9,17 @@ import CIconButton from "../../components/icon-button/CIconButton";
 import { COLOR_BLUE } from "../../constants/Colors";
 import { FinanceService } from "./service/FinanceService";
 import { Alert, Box } from "@mui/material";
+import DeleteFinanceModal from "./sections/DeleteFinanceModal";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
+  const [isDeleteFinanceModalOpen, setIsDeleteFinanceModalOpen] = useState(false);
   const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
   const [error, setError] = useState<string | null>(null);
+
   const axios = useAxios();
+
   const financeService = new FinanceService(axios);
 
   useEffect(() => {
@@ -25,7 +29,6 @@ const FinancesPage = () => {
         setFinanceRecords(response.data);
       })
       .catch((error) => {
-        console.log(error);
         setError(error.response.data.message);
       });
   }, []);
@@ -66,8 +69,22 @@ const FinancesPage = () => {
     handleEditFinanceModalClosed();
   }
 
-  function handleAddButtonClicked() {
-    setIsEditFinanceModalOpen(true);
+  function handleDeleteButtonClicked(id: string) {
+    setSelectedFinanceRecord(financeRecords.find((record) => record.id === id));
+    setIsDeleteFinanceModalOpen(true);
+  }
+
+  function handleDeleteFinanceModalSubmitted() {
+    financeService
+      .deleteFinance(selectedFinanceRecord!.id)
+      .then((response) => {
+        setFinanceRecords(response.data);
+      })
+      .catch((error) => {
+        setError(error.response.data.message);
+      });
+    setIsDeleteFinanceModalOpen(false);
+    setSelectedFinanceRecord(undefined);
   }
 
   return (
@@ -83,17 +100,24 @@ const FinancesPage = () => {
         actionButtons={[
           <CIconButton
             key="addButton"
-            onButtonClick={handleAddButtonClicked}
+            onButtonClick={() => setIsEditFinanceModalOpen(true)}
             color={COLOR_BLUE}
             icon={<IoIosAddCircleOutline />}
           ></CIconButton>,
         ]}
+        deleteOption
+        onDeleteButtonClicked={handleDeleteButtonClicked}
       />
       <EditFinanceModal
         selectedFinanceRecord={selectedFinanceRecord}
         open={isEditFinanceModalOpen}
         onClose={handleEditFinanceModalClosed}
         onSubmit={handleEditFinanceModalSubmitted}
+      />
+      <DeleteFinanceModal
+        open={isDeleteFinanceModalOpen}
+        onClose={() => setIsDeleteFinanceModalOpen(false)}
+        onSubmit={handleDeleteFinanceModalSubmitted}
       />
     </Box>
   );

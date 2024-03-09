@@ -1,4 +1,4 @@
-import { ReactElement } from "react";
+import { ReactElement, SyntheticEvent } from "react";
 import { IconButton } from "@mui/material";
 
 function CIconButton(props: Props) {
@@ -12,7 +12,7 @@ function CIconButton(props: Props) {
 interface Props {
   icon: ReactElement;
   color: string;
-  onButtonClick: () => void;
+  onButtonClick: (event: SyntheticEvent) => void;
 }
 
 export default CIconButton;

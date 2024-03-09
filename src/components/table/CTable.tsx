@@ -13,12 +13,14 @@ import {
   Typography,
 } from "@mui/material";
 import { orderBy as lodashOrderBy } from "lodash";
-import { ReactElement, useMemo, useState } from "react";
-import { COLOR_BLUE } from "../../constants/Colors";
+import React, { ReactElement, useMemo, useState, SyntheticEvent } from "react";
+import { COLOR_BLUE, COLOR_RED } from "../../constants/Colors";
 import { capitalizeFirstLetter } from "../../utils/StringUtils";
 import "./CTable.scss";
 import { TabDataModel } from "./TabDataModel";
 import { TabHeadCellModel } from "./TabHeadCellModel";
+import CIconButton from "../icon-button/CIconButton";
+import { IoTrashOutline } from "react-icons/io5";
 
 interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
@@ -26,6 +28,8 @@ interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   headCells: R[];
   onRowSelected: (id: string) => void;
   actionButtons?: ReactElement[];
+  deleteOption?: boolean;
+  onDeleteButtonClicked?: (id: string) => void;
 }
 
 interface EnhancedTableHead<T extends TabHeadCellModel, R extends TabDataModel> {
@@ -34,6 +38,7 @@ interface EnhancedTableHead<T extends TabHeadCellModel, R extends TabDataModel> 
   orderBy: keyof R;
   rowCount: number;
   headCells: T[];
+  withActions?: boolean;
 }
 
 enum Order {
@@ -77,6 +82,15 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
     );
   }, [order, orderBy, page, rows, rowsPerPage]);
 
+  function handleDeleteButtonClicked(event: SyntheticEvent, id: string) {
+    event.stopPropagation();
+    props.onDeleteButtonClicked && props.onDeleteButtonClicked(id);
+  }
+
+  function hasActions() {
+    return props.deleteOption;
+  }
+
   return (
     <Box sx={{ width: "100%" }}>
       <Paper sx={{ width: "100%", mb: 2 }}>
@@ -108,6 +122,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
               onRequestSort={handleRequestSort}
               rowCount={rows.length}
               headCells={props.headCells}
+              withActions={hasActions()}
             />
             <TableBody>
               {visibleRows.map((row) => {
@@ -127,6 +142,18 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
                         </TableCell>
                       );
                     })}
+                    {props.deleteOption && (
+                      <TableCell align="right">
+                        <CIconButton
+                          key="deleteButton"
+                          onButtonClick={(event: SyntheticEvent) =>
+                            handleDeleteButtonClicked(event, row.id)
+                          }
+                          color={COLOR_RED}
+                          icon={<IoTrashOutline />}
+                        ></CIconButton>
+                      </TableCell>
+                    )}
                   </TableRow>
                 );
               })}
@@ -179,6 +206,7 @@ function CTableHead<T extends TabHeadCellModel, R extends TabDataModel>(
             </TableSortLabel>
           </TableCell>
         ))}
+        {props.withActions && <TableCell align="right" />}
       </TableRow>
     </TableHead>
   );

@@ -29,7 +29,7 @@ const EditFinanceModal = (props: Props) => {
     setFormData({ ...formData, dateOfBirth: date });
   };
 
-  function handleFinanceEditModalClosed() {
+  function handleModalClosed() {
     setErrors(new Map());
     props.onClose();
   }
@@ -65,7 +65,7 @@ const EditFinanceModal = (props: Props) => {
   };
 
   return (
-    <CModal title={"Edit finance"} open={props.open} onClose={handleFinanceEditModalClosed}>
+    <CModal title={"Edit finance"} open={props.open} onClose={handleModalClosed}>
       <form noValidate onSubmit={handleSubmit}>
         <Grid container direction={"column"} spacing={2}>
           <Grid item>
@@ -132,7 +132,7 @@ const EditFinanceModal = (props: Props) => {
           </Grid>
         </Grid>
         <Box sx={{ pt: 5, display: "flex", justifyContent: "flex-end", gap: 3 }}>
-          <Button onClick={handleFinanceEditModalClosed}>Cancel</Button>
+          <Button onClick={handleModalClosed}>Cancel</Button>
           <Button type={"submit"} variant="contained">
             Submit
           </Button>

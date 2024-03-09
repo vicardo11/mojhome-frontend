@@ -20,4 +20,8 @@ export class FinanceService {
   public createFinance = (body: FinanceRecord) => {
     return this.axios.post<FinanceRecord>(FINANCES_URL, body);
   };
+
+  public deleteFinance = (id: string) => {
+    return this.axios.delete(`${FINANCES_URL}/${id}`);
+  };
 }
