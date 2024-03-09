@@ -10,6 +10,7 @@ import { COLOR_BLUE } from "../../constants/Colors";
 import { FinanceService } from "./service/FinanceService";
 import { Alert, Box } from "@mui/material";
 import DeleteFinanceModal from "./sections/DeleteFinanceModal";
+import { AxiosResponse } from "axios";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
@@ -28,9 +29,7 @@ const FinancesPage = () => {
       .then((response) => {
         setFinanceRecords(response.data);
       })
-      .catch((error) => {
-        setError(error.response.data.message);
-      });
+      .catch(handleError);
   }, []);
 
   function handleRowSelected(id: string) {
@@ -43,48 +42,48 @@ const FinancesPage = () => {
     setSelectedFinanceRecord(undefined);
   }
 
-  function handleEditFinanceModalSubmitted(record: FinanceRecord) {
-    // If ID === null then create else update
-    record.id
-      ? financeService
-          .updateFinance(record)
-          .then((response) => {
-            const newFinanceRecords = financeRecords.map((financeRecord) => {
-              return financeRecord.id === response.data.id ? record : financeRecord;
-            });
-            setFinanceRecords(newFinanceRecords);
-          })
-          .catch((error) => {
-            setError(error.response.data.message);
-          })
-      : financeService
-          .createFinance(record)
-          .then((response) => {
-            const newFinanceRecords = [...financeRecords, response.data];
-            setFinanceRecords(newFinanceRecords);
-          })
-          .catch((error) => {
-            setError(error.response.data.message);
-          });
-    handleEditFinanceModalClosed();
-  }
-
   function handleDeleteButtonClicked(id: string) {
     setSelectedFinanceRecord(financeRecords.find((record) => record.id === id));
     setIsDeleteFinanceModalOpen(true);
   }
 
+  function handleEditFinanceModalSubmitted(record: FinanceRecord) {
+    // If ID === null then create else update
+    record.id
+      ? financeService.updateFinance(record).then(handleUpdateResponse(record)).catch(handleError)
+      : financeService.createFinance(record).then(handleCreateResponse()).catch(handleError);
+    handleEditFinanceModalClosed();
+  }
+
+  function handleCreateResponse() {
+    return (response: AxiosResponse) => {
+      const newFinanceRecords = [...financeRecords, response.data];
+      setFinanceRecords(newFinanceRecords);
+    };
+  }
+
+  function handleUpdateResponse(record: FinanceRecord) {
+    return (response: AxiosResponse) => {
+      const newFinanceRecords = financeRecords.map((financeRecord) => {
+        return financeRecord.id === response.data.id ? record : financeRecord;
+      });
+      setFinanceRecords(newFinanceRecords);
+    };
+  }
   function handleDeleteFinanceModalSubmitted() {
     financeService
       .deleteFinance(selectedFinanceRecord!.id)
       .then((response) => {
         setFinanceRecords(response.data);
       })
-      .catch((error) => {
-        setError(error.response.data.message);
-      });
+      .catch(handleError);
     setIsDeleteFinanceModalOpen(false);
     setSelectedFinanceRecord(undefined);
+  }
+
+  function handleError(error: any) {
+    const errorMessage: string = error.response?.data?.message ?? "An error occurred";
+    setError(errorMessage);
   }
 
   return (
