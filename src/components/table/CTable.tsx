@@ -33,7 +33,7 @@ interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
 }
 
 interface EnhancedTableHead<T extends TabHeadCellModel, R extends TabDataModel> {
-  onRequestSort: (event: React.MouseEvent<unknown>, property: string) => void;
+  onSort: (event: React.MouseEvent<unknown>, property: string) => void;
   order: Order;
   orderBy: keyof R;
   rowCount: number;
@@ -53,7 +53,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
   const [orderBy, setOrderBy] = useState<string>("");
   const rows = props.data;
 
-  const handleRequestSort = (event: React.MouseEvent<unknown>, property: string) => {
+  const handleSort = (event: React.MouseEvent<unknown>, property: string) => {
     property = property.toLowerCase();
     const isAsc = orderBy === property && order === Order.ASC;
     setOrder(isAsc ? Order.DESC : Order.ASC);
@@ -117,7 +117,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
             <CTableHead
               order={order}
               orderBy={orderBy}
-              onRequestSort={handleRequestSort}
+              onSort={handleSort}
               rowCount={rows.length}
               headCells={props.headCells}
               withActions={hasActions()}
@@ -175,9 +175,9 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
 function CTableHead<T extends TabHeadCellModel, R extends TabDataModel>(
   props: EnhancedTableHead<T, R>,
 ) {
-  const { order, orderBy, onRequestSort } = props;
+  const { order, orderBy, onSort } = props;
   const createSortHandler = (property: string) => (event: React.MouseEvent<unknown>) => {
-    onRequestSort(event, property);
+    onSort(event, property);
   };
 
   return (
