@@ -60,7 +60,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
     setOrderBy(property);
   };
 
-  const handleClick = (id: string) => {
+  const handleRowClick = (id: string) => {
     props.onRowSelected(id);
   };
 
@@ -128,7 +128,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
                   <TableRow
                     className="TableRow"
                     hover
-                    onClick={() => handleClick(row.id)}
+                    onClick={() => handleRowClick(row.id)}
                     tabIndex={-1}
                     key={row.id}
                     sx={{ cursor: "pointer" }}
