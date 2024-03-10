@@ -87,7 +87,7 @@ const EditFinanceModal = (props: Props) => {
               <TextField
                 required
                 label="Amount"
-                defaultValue={props.selectedFinanceRecord?.amount}
+                defaultValue={props.selectedFinanceRecord?.amount?.toFixed(2)}
                 name="amount"
                 type="number"
                 onChange={handleChange}
