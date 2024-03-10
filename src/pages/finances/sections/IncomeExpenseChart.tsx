@@ -11,6 +11,7 @@ import {
   CategoryScale,
   Chart as ChartJS,
   ChartData,
+  ChartOptions,
   Legend,
   LinearScale,
   Title,
@@ -18,6 +19,22 @@ import {
 } from "chart.js";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
+
+const chartOptions: ChartOptions<"bar"> = {
+  responsive: true,
+  plugins: {
+    legend: {
+      position: "bottom",
+    },
+    tooltip: {
+      callbacks: {
+        label: (context) => {
+          return context.dataset.label + ": " + (context.parsed.y ?? 0).toFixed(2);
+        },
+      },
+    },
+  },
+};
 
 const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
   const [chartData, setChartData] = useState<ChartData<"bar", number[]>>({
@@ -59,10 +76,7 @@ const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
         </Toolbar>
       </Box>
       <Box sx={{ pb: 4, pt: 2, px: 4 }}>
-        <Bar
-          options={{ responsive: true, plugins: { legend: { position: "bottom" } } }}
-          data={chartData}
-        ></Bar>
+        <Bar options={chartOptions} data={chartData}></Bar>
       </Box>
     </Paper>
   );
