@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import CTable from "../../components/table/CTable";
+import CTable, { Order } from "../../components/table/CTable";
 import useAxios from "../../hooks/useAxios";
 import { FinanceRecord } from "./model/FinanceRecord";
 import { FINANCE_TABLE_MODEL } from "./model/FinanceTableModel";
@@ -97,6 +97,8 @@ const FinancesPage = () => {
       </Alert>
       <CTable
         title="Finances"
+        orderBy="date"
+        orderDirection={Order.DESC}
         data={financeRecords}
         headCells={FINANCE_TABLE_MODEL}
         onRowSelected={handleRowSelected}

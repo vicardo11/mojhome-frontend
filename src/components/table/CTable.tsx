@@ -26,6 +26,8 @@ interface TableProps<T extends TabDataModel, R extends TabHeadCellModel> {
   title: string;
   data: T[];
   headCells: R[];
+  orderBy?: string;
+  orderDirection?: Order;
   onRowSelected: (id: string) => void;
   actionButtons?: ReactElement[];
   deleteOption?: boolean;
@@ -41,16 +43,16 @@ interface EnhancedTableHead<T extends TabHeadCellModel, R extends TabDataModel> 
   withActions?: boolean;
 }
 
-enum Order {
+export enum Order {
   ASC = "asc",
   DESC = "desc",
 }
 
 function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: TableProps<T, R>) {
-  const [order, setOrder] = useState<Order>(Order.ASC);
+  const [order, setOrder] = useState<Order>(props.orderDirection || Order.ASC);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
-  const [orderBy, setOrderBy] = useState<string>("");
+  const [orderBy, setOrderBy] = useState<string>(props.orderBy || "");
   const rows = props.data;
 
   const handleSort = (event: React.MouseEvent<unknown>, property: string) => {
