@@ -43,7 +43,7 @@ function getFourMonthsAgoStart(): Date {
  */
 function initializeMap(map: Map<string, number>) {
   // Iterate over the last four months
-  for (let i = 3; i > 0; i--) {
+  for (let i = 3; i >= 0; i--) {
     // Create a new date object and subtract the current iteration number from the month
     const date = new Date();
     date.setMonth(date.getMonth() - i);

@@ -27,6 +27,8 @@ const chartOptions: ChartOptions<"bar"> = {
       position: "bottom",
     },
     tooltip: {
+      mode: "index",
+      intersect: false,
       callbacks: {
         label: (context) => {
           return context.dataset.label + ": " + (context.parsed.y ?? 0).toFixed(2);
