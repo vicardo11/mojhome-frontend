@@ -101,7 +101,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
           >
             <Typography
               sx={{ flex: "1 1 100%" }}
-              variant="h6"
+              variant="h5"
               id="tableTitle"
               component="div"
               className="table-title"

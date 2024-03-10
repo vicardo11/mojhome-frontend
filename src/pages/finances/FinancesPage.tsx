@@ -7,33 +7,28 @@ import EditFinanceModal from "./sections/EditFinanceModal";
 import { IoIosAddCircleOutline } from "react-icons/io";
 import CIconButton from "../../components/icon-button/CIconButton";
 import { COLOR_BLUE } from "../../constants/Colors";
-import { FinanceService } from "./service/FinanceService";
+import { FinanceApiService } from "./service/FinanceApiService";
 import { Alert, Box } from "@mui/material";
 import DeleteFinanceModal from "./sections/DeleteFinanceModal";
 import { AxiosResponse } from "axios";
-import { connect, useDispatch, useSelector } from "react-redux";
-import { FinanceState } from "../../store/reducer";
+import IncomeExpenseChart from "./sections/IncomeExpenseChart";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
   const [isDeleteFinanceModalOpen, setIsDeleteFinanceModalOpen] = useState(false);
+  const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
   const [error, setError] = useState<string | null>(null);
-
-  const dispatch = useDispatch();
-  const financeRecords: FinanceRecord[] = useSelector(
-    (state: FinanceState) => state.financeRecords,
-  );
 
   const axios = useAxios();
 
-  const financeService = new FinanceService(axios);
+  const financeApiService = new FinanceApiService(axios);
 
   useEffect(() => {
-    financeService
+    financeApiService
       .getFinances()
       .then((response) => {
-        dispatch({ type: "SET_RECORDS", records: response.data }); // Dispatch action here
+        setFinanceRecords(response.data);
       })
       .catch(handleError);
   }, []);
@@ -56,25 +51,34 @@ const FinancesPage = () => {
   function handleEditFinanceModalSubmitted(record: FinanceRecord) {
     // If ID === null then create else update
     record.id
-      ? financeService.updateFinance(record).then(handleUpdateResponse(record)).catch(handleError)
-      : financeService.createFinance(record).then(handleCreateResponse()).catch(handleError);
+      ? financeApiService
+          .updateFinance(record)
+          .then(handleUpdateResponse(record))
+          .catch(handleError)
+      : financeApiService.createFinance(record).then(handleCreateResponse()).catch(handleError);
     handleEditFinanceModalClosed();
   }
 
   function handleCreateResponse() {
     return (response: AxiosResponse) => {
-      dispatch({ type: "ADD_RECORD", record: response.data }); // Dispatch action here
+      const newFinanceRecords = [...financeRecords, response.data];
+      setFinanceRecords(newFinanceRecords);
     };
   }
 
   function handleUpdateResponse(record: FinanceRecord) {
-    return () => dispatch({ type: "UPDATE_RECORD", record });
+    return (response: AxiosResponse) => {
+      const newFinanceRecords = financeRecords.map((financeRecord) => {
+        return financeRecord.id === response.data.id ? record : financeRecord;
+      });
+      setFinanceRecords(newFinanceRecords);
+    };
   }
   function handleDeleteFinanceModalSubmitted() {
-    financeService
+    financeApiService
       .deleteFinance(selectedFinanceRecord!.id)
-      .then(() => {
-        dispatch({ type: "REMOVE_RECORD", recordId: selectedFinanceRecord!.id });
+      .then((response) => {
+        setFinanceRecords(response.data);
       })
       .catch(handleError);
     setIsDeleteFinanceModalOpen(false);
@@ -107,6 +111,14 @@ const FinancesPage = () => {
         deleteOption
         onDeleteButtonClicked={handleDeleteButtonClicked}
       />
+      <Box sx={{ display: { laptop: "flex", xs: "block" }, justifyContent: "space-between" }}>
+        <Box sx={{ width: { laptop: "49%", xs: "100%" } }}>
+          <IncomeExpenseChart data={financeRecords} />
+        </Box>
+        <Box sx={{ width: { laptop: "49%", xs: "100%" } }}>
+          <IncomeExpenseChart data={financeRecords.sort((a, b) => (b.date < a.date ? 1 : -1))} />
+        </Box>
+      </Box>
       <EditFinanceModal
         selectedFinanceRecord={selectedFinanceRecord}
         open={isEditFinanceModalOpen}
@@ -122,10 +134,4 @@ const FinancesPage = () => {
   );
 };
 
-const mapStateToProps = (state: any) => {
-  return {
-    financeRecord: state.financeRecords,
-  };
-};
-
-export default connect(mapStateToProps)(FinancesPage);
+export default FinancesPage;
