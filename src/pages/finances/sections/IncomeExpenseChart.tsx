@@ -4,7 +4,7 @@ import { Box, Paper, Toolbar, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { FinanceType } from "../../../types/FinanceType";
-import { FinanceChartService } from "../service/FinanceChartService";
+import { getFinanceDataByType } from "../service/FinanceChartService";
 import { getLastFourMonths } from "../../../utils/DateUtils";
 import {
   BarElement,
@@ -41,13 +41,9 @@ const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
     labels: [],
     datasets: [],
   });
-  const financeChartService = new FinanceChartService();
 
   useEffect(() => {
-    const getFinanceData = (type: FinanceType) =>
-      financeChartService
-        .getLast3MonthsFinanceDataByType(type, data)
-        .map((record) => record.totalAmount);
+    const getFinanceData = (type: FinanceType) => getFinanceDataByType(type, data);
 
     setChartData({
       labels: getLastFourMonths(),
