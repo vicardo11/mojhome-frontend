@@ -7,20 +7,28 @@ import PrivateRoute from "./security/PrivateRoute";
 function App() {
   return (
     <BrowserRouter>
-      <CLayout navbarItems={NAVBAR_DATA}>
-        <Routes>
-          {ROUTES.filter((route) => !route.private).map((route, index) => (
-            <Route key={index} path={route.path} element={<route.component />} />
-          ))}
-          {ROUTES.filter((route) => route.private).map((route, index) => (
-            <Route
-              key={index}
-              path={route.path}
-              element={<PrivateRoute component={route.component} />}
-            />
-          ))}
-        </Routes>
-      </CLayout>
+      <Routes>
+        {ROUTES.filter((route) => !route.private).map((route, index) => (
+          <Route key={index} path={route.path} element={<route.component />} />
+        ))}
+      </Routes>
+      <Routes>
+        {ROUTES.filter((route) => route.private).map((route, index) => (
+          <Route
+            key={index}
+            path={route.path}
+            element={
+              <PrivateRoute
+                component={() => (
+                  <CLayout navbarItems={NAVBAR_DATA}>
+                    <route.component />
+                  </CLayout>
+                )}
+              />
+            }
+          />
+        ))}
+      </Routes>
     </BrowserRouter>
   );
 }

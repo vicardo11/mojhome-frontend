@@ -32,14 +32,14 @@ export const ROUTES: RouteModel[] = [
     title: "Report a bug",
     path: "/report-bug",
     component: ReportBugPage,
-    private: false,
+    private: true,
   },
   {
     id: 5,
     title: "Logout",
     path: "/logout",
     component: LogoutPage,
-    private: false,
+    private: true,
   },
 ];
 

@@ -7,14 +7,6 @@ import { LuLogOut } from "react-icons/lu";
 
 export const NAVBAR_DATA = [
   {
-    id: 1,
-    title: "Home",
-    path: "/",
-    icon: AiFillHome,
-    cName: "nav-text",
-    placement: Placement.TOP,
-  },
-  {
     id: 2,
     title: "Finances",
     path: "/finances",
