@@ -1,29 +1,42 @@
 import { TabHeadCellModel } from "../../../components/table/TabHeadCellModel";
 
+let a = 0;
+
 export const FINANCE_TABLE_MODEL: TabHeadCellModel[] = [
   {
-    id: 1,
+    id: a++,
     numeric: false,
     disablePadding: false,
     label: "name",
+    field: "name",
   },
   {
-    id: 2,
+    id: a++,
+    numeric: false,
+    disablePadding: false,
+    label: "category",
+    field: "categoryName",
+  },
+  {
+    id: a++,
     numeric: false,
     disablePadding: false,
     label: "type",
+    field: "type",
   },
   {
-    id: 3,
+    id: a++,
     numeric: false,
     disablePadding: false,
     label: "date",
+    field: "date",
   },
   {
-    id: 4,
+    id: a++,
     numeric: true,
     disablePadding: false,
     label: "amount",
+    field: "amount",
     align: "right",
   },
 ];

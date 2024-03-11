@@ -138,7 +138,7 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
                     {props.headCells.map((cell, index) => {
                       return (
                         <TableCell align={cell.align} key={index}>
-                          {convertToTabValue(row[cell.label])}
+                          {convertToTabValue(row[cell.field])}
                         </TableCell>
                       );
                     })}
@@ -190,12 +190,12 @@ function CTableHead<T extends TabHeadCellModel, R extends TabDataModel>(
             key={headCell.id}
             align={headCell.numeric ? "right" : "left"}
             padding={headCell.disablePadding ? "none" : "normal"}
-            sortDirection={orderBy === headCell.label ? order : false}
+            sortDirection={orderBy === headCell.field ? order : false}
           >
             <TableSortLabel
-              active={orderBy === headCell.label}
-              direction={orderBy === headCell.label ? order : Order.ASC}
-              onClick={createSortHandler(headCell.label)}
+              active={orderBy === headCell.field}
+              direction={orderBy === headCell.field ? order : Order.ASC}
+              onClick={createSortHandler(headCell.field)}
             >
               {capitalizeFirstLetter(headCell.label)}
             </TableSortLabel>

@@ -7,4 +7,6 @@ export interface FinanceRecord extends TabDataModel {
   type: FinanceType;
   amount: number;
   date: Date;
+  categoryId: string;
+  categoryName: string;
 }
