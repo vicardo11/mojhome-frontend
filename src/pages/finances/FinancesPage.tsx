@@ -12,6 +12,7 @@ import { Alert, Box } from "@mui/material";
 import DeleteFinanceModal from "./sections/DeleteFinanceModal";
 import { AxiosResponse } from "axios";
 import IncomeExpenseChart from "./sections/IncomeExpenseChart";
+import CategoriesChart from "./sections/CategoriesChart";
 
 const FinancesPage = () => {
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
@@ -113,12 +114,17 @@ const FinancesPage = () => {
         deleteOption
         onDeleteButtonClicked={handleDeleteButtonClicked}
       />
-      <Box sx={{ display: { laptop: "flex", xs: "block" }, justifyContent: "space-between" }}>
+      <Box
+        sx={{
+          display: { laptop: "flex", xs: "block" },
+          justifyContent: "space-between",
+        }}
+      >
         <Box sx={{ width: { laptop: "49%", xs: "100%" } }}>
           <IncomeExpenseChart data={financeRecords} />
         </Box>
         <Box sx={{ width: { laptop: "49%", xs: "100%" } }}>
-          <IncomeExpenseChart data={financeRecords.sort((a, b) => (b.date < a.date ? 1 : -1))} />
+          <CategoriesChart data={financeRecords} />
         </Box>
       </Box>
       <EditFinanceModal
