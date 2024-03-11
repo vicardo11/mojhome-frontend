@@ -21,7 +21,7 @@ const PrivateRoute: React.FC<PrivateRouteProps> = ({ component: Component }) => 
         redirect_uri: "http://localhost:3000/" + location.pathname,
       });
     }
-  }, [auth, auth.isAuthenticated, auth.isLoading]);
+  }, [auth, auth.isAuthenticated, auth.isLoading, location.pathname]);
 
   if (auth.isAuthenticated) {
     return <Component />;

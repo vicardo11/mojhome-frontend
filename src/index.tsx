@@ -7,7 +7,6 @@ import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/_index.scss";
 import { AuthProvider } from "react-oidc-context";
-import { WebStorageStateStore } from "oidc-client-ts";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
@@ -18,9 +17,6 @@ const oidcConfig = {
   redirect_uri: "http://localhost:3000/",
   post_logout_redirect_uri: "http://localhost:3000/",
   scope: "microprofile-jwt",
-  userStore: new WebStorageStateStore({
-    store: window.localStorage,
-  }),
   automaticSilentRenew: true,
 };
 
