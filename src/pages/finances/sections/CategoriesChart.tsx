@@ -30,6 +30,13 @@ const chartOptions: ChartOptions<"pie"> = {
     legend: {
       position: "bottom",
     },
+    tooltip: {
+      callbacks: {
+        label: (context) => {
+          return context.label ?? "";
+        },
+      },
+    },
   },
 };
 
