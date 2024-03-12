@@ -1,4 +1,4 @@
-import { capitalizeFirstLetter, isEmpty } from "../StringUtils";
+import { capitalizeFirstLetter, formatToCamelCase, isEmpty } from "../StringUtils";
 
 describe("capitalizeFirstLetter function", () => {
   it("capitalizes the first letter of a word", () => {
@@ -39,5 +39,35 @@ describe("isEmpty function", () => {
   it("returns false for non-empty string", () => {
     expect(isEmpty("hello")).toBe(false);
     expect(isEmpty("world")).toBe(false);
+  });
+});
+
+describe("formatToCamelCase function", () => {
+  it("converts a string with spaces to camel case", () => {
+    expect(formatToCamelCase("hello world")).toBe("helloWorld");
+    expect(formatToCamelCase("GitHub Copilot")).toBe("gitHubCopilot");
+  });
+
+  it("converts a string with multiple spaces to camel case", () => {
+    expect(formatToCamelCase("hello  world")).toBe("helloWorld");
+    expect(formatToCamelCase("GitHub  Copilot")).toBe("gitHubCopilot");
+  });
+
+  it("does not modify strings already in camel case", () => {
+    expect(formatToCamelCase("helloWorld")).toBe("helloWorld");
+    expect(formatToCamelCase("gitHubCopilot")).toBe("gitHubCopilot");
+  });
+
+  it("handles empty string", () => {
+    expect(formatToCamelCase("")).toBe("");
+  });
+
+  it("handles strings with only one character", () => {
+    expect(formatToCamelCase("a")).toBe("a");
+    expect(formatToCamelCase("Z")).toBe("z");
+  });
+
+  it("handles strings with only spaces", () => {
+    expect(formatToCamelCase("   ")).toBe("");
   });
 });

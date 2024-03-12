@@ -15,7 +15,7 @@ import {
 import { orderBy as lodashOrderBy } from "lodash";
 import React, { ReactElement, useMemo, useState, SyntheticEvent } from "react";
 import { COLOR_BLUE, COLOR_RED } from "../../constants/Colors";
-import { capitalizeFirstLetter } from "../../utils/StringUtils";
+import { formatToCamelCase, capitalizeFirstLetter } from "../../utils/StringUtils";
 import "./CTable.scss";
 import { TabDataModel } from "./TabDataModel";
 import { TabHeadCellModel } from "./TabHeadCellModel";
@@ -56,7 +56,8 @@ function CTable<T extends TabDataModel, R extends TabHeadCellModel>(props: Table
   const rows = props.data;
 
   const handleSort = (event: React.MouseEvent<unknown>, property: string) => {
-    property = property.toLowerCase();
+    property = formatToCamelCase(property);
+    console.log(property);
     const isAsc = orderBy === property && order === Order.ASC;
     setOrder(isAsc ? Order.DESC : Order.ASC);
     setOrderBy(property);
