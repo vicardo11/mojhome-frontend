@@ -40,6 +40,9 @@ const EditFinanceModal = (props: Props) => {
     e.preventDefault();
     if (validateForm()) {
       // Form submitted successfully
+      if (formData && !formData.date) {
+        formData.date = new Date();
+      }
       props.onSubmit(formData as FinanceRecord);
     }
   };
