@@ -125,11 +125,11 @@ const EditFinanceModal = (props: Props) => {
             <FormControl fullWidth>
               <TextField
                 required
-                name="category"
+                name="categoryId"
                 select
                 label="Category"
                 onChange={handleChange}
-                defaultValue={props.selectedFinanceRecord?.categoryName ?? ""}
+                defaultValue={props.selectedFinanceRecord?.categoryId ?? ""}
                 error={errors?.has("category")}
                 helperText={errors?.get("category")}
               >

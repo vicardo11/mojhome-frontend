@@ -68,10 +68,7 @@ const FinancesPage = () => {
   function handleEditFinanceModalSubmitted(record: FinanceRecord) {
     // If ID === null then create else update
     record.id
-      ? financeApiService
-          .updateFinance(record)
-          .then(handleUpdateResponse(record))
-          .catch(handleError)
+      ? financeApiService.updateFinance(record).then(handleUpdateResponse()).catch(handleError)
       : financeApiService.createFinance(record).then(handleCreateResponse()).catch(handleError);
     handleEditFinanceModalClosed();
   }
@@ -83,10 +80,10 @@ const FinancesPage = () => {
     };
   }
 
-  function handleUpdateResponse(record: FinanceRecord) {
+  function handleUpdateResponse() {
     return (response: AxiosResponse) => {
       const newFinanceRecords = financeRecords.map((financeRecord) => {
-        return financeRecord.id === response.data.id ? record : financeRecord;
+        return financeRecord.id === response.data.id ? response.data : financeRecord;
       });
       setFinanceRecords(newFinanceRecords);
     };
