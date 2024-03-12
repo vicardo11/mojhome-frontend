@@ -62,6 +62,10 @@ const EditFinanceModal = (props: Props) => {
       newErrors.set("type", "Type is required");
     }
 
+    if (!formData?.categoryId) {
+      newErrors.set("category", "Category is required");
+    }
+
     setErrors(newErrors);
     return newErrors.size === 0;
   };
@@ -130,7 +134,7 @@ const EditFinanceModal = (props: Props) => {
                 helperText={errors?.get("category")}
               >
                 {props.categories.map((cat) => (
-                  <MenuItem key={cat.id} value={cat.name}>
+                  <MenuItem key={cat.id} value={cat.id}>
                     {cat.name}
                   </MenuItem>
                 ))}
