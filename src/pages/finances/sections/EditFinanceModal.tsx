@@ -9,6 +9,7 @@ import { isEmpty } from "../../../utils/StringUtils";
 import { useEffect, useState } from "react";
 import { FinanceRecord } from "../model/FinanceRecord";
 import { isCorrectAmountFormat, isGreaterThanZero } from "../../../utils/NumberUtils";
+import { CategoryRecord } from "../model/CategoryRecord";
 
 const EditFinanceModal = (props: Props) => {
   const [formData, setFormData] = useState<Partial<FinanceRecord>>();
@@ -117,6 +118,26 @@ const EditFinanceModal = (props: Props) => {
             </FormControl>
           </Grid>
           <Grid item>
+            <FormControl fullWidth>
+              <TextField
+                required
+                name="category"
+                select
+                label="Category"
+                onChange={handleChange}
+                defaultValue={props.selectedFinanceRecord?.categoryName ?? ""}
+                error={errors?.has("category")}
+                helperText={errors?.get("category")}
+              >
+                {props.categories.map((cat) => (
+                  <MenuItem key={cat.id} value={cat.name}>
+                    {cat.name}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </FormControl>
+          </Grid>
+          <Grid item>
             <LocalizationProvider dateAdapter={AdapterDayjs}>
               <DatePicker
                 defaultValue={dayjs(props.selectedFinanceRecord?.date)}
@@ -141,6 +162,7 @@ const EditFinanceModal = (props: Props) => {
 
 interface Props {
   selectedFinanceRecord?: FinanceRecord;
+  categories: CategoryRecord[];
   open: boolean;
   onSubmit: (record: FinanceRecord) => void;
   onClose: () => void;

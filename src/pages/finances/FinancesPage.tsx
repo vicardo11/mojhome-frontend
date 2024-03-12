@@ -13,12 +13,14 @@ import DeleteFinanceModal from "./sections/DeleteFinanceModal";
 import { AxiosResponse } from "axios";
 import IncomeExpenseChart from "./sections/IncomeExpenseChart";
 import CategoriesChart from "./sections/CategoriesChart";
+import { CategoryRecord } from "./model/CategoryRecord";
 
 const FinancesPage = () => {
+  const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
+  const [categories, setCategories] = useState<CategoryRecord[]>([]);
   const [selectedFinanceRecord, setSelectedFinanceRecord] = useState<FinanceRecord>();
   const [isEditFinanceModalOpen, setIsEditFinanceModalOpen] = useState(false);
   const [isDeleteFinanceModalOpen, setIsDeleteFinanceModalOpen] = useState(false);
-  const [financeRecords, setFinanceRecords] = useState<FinanceRecord[]>([]);
   const [error, setError] = useState<string | null>(null);
 
   const axios = useAxios();
@@ -26,13 +28,27 @@ const FinancesPage = () => {
   const financeApiService = new FinanceApiService(axios);
 
   useEffect(() => {
+    retrieveFinancesList();
+    retrieveCategoriesList();
+  }, []);
+
+  function retrieveFinancesList() {
     financeApiService
       .getFinances()
       .then((response) => {
         setFinanceRecords(response.data);
       })
       .catch(handleError);
-  }, []);
+  }
+
+  function retrieveCategoriesList() {
+    financeApiService
+      .getCategories()
+      .then((response) => {
+        setCategories(response.data);
+      })
+      .catch(handleError);
+  }
 
   function handleRowSelected(id: string) {
     setSelectedFinanceRecord(financeRecords.find((record) => record.id === id));
@@ -129,6 +145,7 @@ const FinancesPage = () => {
       </Box>
       <EditFinanceModal
         selectedFinanceRecord={selectedFinanceRecord}
+        categories={categories}
         open={isEditFinanceModalOpen}
         onClose={handleEditFinanceModalClosed}
         onSubmit={handleEditFinanceModalSubmitted}

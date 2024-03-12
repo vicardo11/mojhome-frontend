@@ -1,10 +1,14 @@
 import { FinanceType } from "../../../types/FinanceType";
 import { FinanceRecord } from "../model/FinanceRecord";
 
-export function getFinanceDataByType(type: FinanceType, financeRecords: FinanceRecord[]): number[] {
-  const fourMonthsAgo = getFourMonthsAgoStart();
+export function getFinanceDataByType(
+  type: FinanceType,
+  financeRecords: FinanceRecord[],
+  toDate: Date,
+): number[] {
+  const fourMonthsAgo = getFourMonthsBack(toDate);
   const map = new Map<string, number>();
-  initializeMap(map);
+  initializeMap(map, toDate);
 
   financeRecords
     .filter((record) => record.type === type && new Date(record.date) >= fourMonthsAgo)
@@ -27,8 +31,8 @@ export function getFinanceDataByType(type: FinanceType, financeRecords: FinanceR
  *
  * @returns {Date} - A Date object set to the start of the day four months ago.
  */
-function getFourMonthsAgoStart(): Date {
-  const fourMonthsAgo = new Date();
+function getFourMonthsBack(toDate: Date): Date {
+  const fourMonthsAgo = new Date(toDate);
   fourMonthsAgo.setMonth(fourMonthsAgo.getMonth() - 3);
   fourMonthsAgo.setDate(1);
   fourMonthsAgo.setHours(0, 0, 0, 0);
@@ -40,12 +44,13 @@ function getFourMonthsAgoStart(): Date {
  * The keys are strings in the format "year-month".
  *
  * @param {Map<string, number>} map - The map to initialize.
+ * @param toDate
  */
-function initializeMap(map: Map<string, number>) {
+function initializeMap(map: Map<string, number>, toDate: Date) {
   // Iterate over the last four months
   for (let i = 3; i >= 0; i--) {
     // Create a new date object and subtract the current iteration number from the month
-    const date = new Date();
+    const date = new Date(toDate);
     date.setMonth(date.getMonth() - i);
 
     // Get the year and month from the date object

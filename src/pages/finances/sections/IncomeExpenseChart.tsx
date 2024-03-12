@@ -5,7 +5,8 @@ import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { FinanceType } from "../../../types/FinanceType";
 import { getFinanceDataByType } from "../service/FinanceChartService";
-import { getLastFourMonths } from "../../../utils/DateUtils";
+import { getLabels } from "../utils/DateUtils";
+
 import {
   BarElement,
   CategoryScale,
@@ -17,6 +18,11 @@ import {
   Title,
   Tooltip,
 } from "chart.js";
+import { IoIosArrowBack } from "react-icons/io";
+import { IoIosArrowForward } from "react-icons/io";
+import { RxReset } from "react-icons/rx";
+
+import CIconButton from "../../../components/icon-button/CIconButton";
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
@@ -39,16 +45,17 @@ const chartOptions: ChartOptions<"bar"> = {
 };
 
 const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
+  const [toDate, setToDate] = useState<Date>(new Date());
   const [chartData, setChartData] = useState<ChartData<"bar", number[]>>({
     labels: [],
     datasets: [],
   });
 
   useEffect(() => {
-    const getFinanceData = (type: FinanceType) => getFinanceDataByType(type, data);
+    const getFinanceData = (type: FinanceType) => getFinanceDataByType(type, data, toDate);
 
     setChartData({
-      labels: getLastFourMonths(),
+      labels: getLabels(toDate),
       datasets: [
         {
           label: "Incomes",
@@ -62,15 +69,58 @@ const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
         },
       ],
     });
-  }, [data]);
+  }, [data, toDate]);
+
+  function handlePreviousMonth() {
+    const date = new Date(toDate);
+    date.setMonth(date.getMonth() - 1);
+    setToDate(date);
+  }
+
+  function handleNextMonth() {
+    const date = new Date(toDate);
+    date.setMonth(date.getMonth() + 1);
+    if (date > new Date()) {
+      return;
+    }
+    setToDate(date);
+  }
+
+  function handleRangeReset() {
+    setToDate(new Date());
+  }
 
   return (
     <Paper sx={{ width: "100%", mb: 3 }}>
       <Box>
         <Toolbar sx={{ pl: { sm: 2 }, pt: 3, pb: 4 }}>
           <Typography sx={{ flex: "1 1 100%" }} variant="h5" component="div" color={COLOR_BLUE}>
-            Last 4 months
+            Breakdown
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              fontSize: 25,
+              color: COLOR_BLUE,
+              placeItems: "center",
+            }}
+          >
+            <CIconButton
+              icon={<RxReset />}
+              color={COLOR_BLUE}
+              onButtonClick={handleRangeReset}
+            ></CIconButton>
+            <CIconButton
+              icon={<IoIosArrowBack />}
+              color={COLOR_BLUE}
+              onButtonClick={handlePreviousMonth}
+            ></CIconButton>
+            <CIconButton
+              icon={<IoIosArrowForward />}
+              color={COLOR_BLUE}
+              onButtonClick={handleNextMonth}
+            ></CIconButton>
+          </Box>
         </Toolbar>
       </Box>
       <Box sx={{ pb: 4, pt: 2, px: 4 }}>
