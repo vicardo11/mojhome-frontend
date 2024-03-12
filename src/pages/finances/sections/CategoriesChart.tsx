@@ -28,12 +28,12 @@ const chartOptions: ChartOptions<"pie"> = {
   maintainAspectRatio: false,
   plugins: {
     legend: {
-      position: "bottom",
+      position: "left",
     },
     tooltip: {
       callbacks: {
         label: (context) => {
-          return context.label ?? "";
+          return context.parsed.toFixed(2);
         },
       },
     },
