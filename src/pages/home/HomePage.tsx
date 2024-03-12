@@ -1,5 +1,7 @@
+import { Navigate } from "react-router-dom";
+
 const HomePage = () => {
-  return <h1>TEXT</h1>;
+  return <Navigate to={"/finances"}></Navigate>;
 };
 
 export default HomePage;
