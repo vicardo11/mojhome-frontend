@@ -1,7 +1,7 @@
 import { FinanceRecord } from "../model/FinanceRecord";
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED } from "../../../constants/Colors";
 import { Box, Paper, Toolbar, Typography } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { FinanceType } from "../../../types/FinanceType";
 import { getFinanceDataByType } from "../service/FinanceChartService";
@@ -28,6 +28,7 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const chartOptions: ChartOptions<"bar"> = {
   responsive: true,
+  maintainAspectRatio: false,
   plugins: {
     legend: {
       position: "bottom",
@@ -91,39 +92,37 @@ const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
   }
 
   return (
-    <Paper sx={{ width: "100%", mb: 3 }}>
-      <Box>
-        <Toolbar sx={{ pl: { sm: 2 }, pt: 3, pb: 4 }}>
-          <Typography sx={{ flex: "1 1 100%" }} variant="h5" component="div" color={COLOR_BLUE}>
-            Breakdown
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              fontSize: 25,
-              color: COLOR_BLUE,
-              placeItems: "center",
-            }}
-          >
-            <CIconButton
-              icon={<RxReset />}
-              color={COLOR_BLUE}
-              onButtonClick={handleRangeReset}
-            ></CIconButton>
-            <CIconButton
-              icon={<IoIosArrowBack />}
-              color={COLOR_BLUE}
-              onButtonClick={handlePreviousMonth}
-            ></CIconButton>
-            <CIconButton
-              icon={<IoIosArrowForward />}
-              color={COLOR_BLUE}
-              onButtonClick={handleNextMonth}
-            ></CIconButton>
-          </Box>
-        </Toolbar>
-      </Box>
-      <Box sx={{ pb: 4, pt: 2, px: 4 }}>
+    <Paper sx={{ width: "100%", height: "300px", mb: 3 }}>
+      <Toolbar sx={{ height: "10%", pl: { sm: 2 }, pt: 3, pb: 4 }}>
+        <Typography sx={{ flex: "1 1 100%" }} variant="h5" component="div" color={COLOR_BLUE}>
+          Breakdown
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            fontSize: 25,
+            color: COLOR_BLUE,
+            placeItems: "center",
+          }}
+        >
+          <CIconButton
+            icon={<RxReset />}
+            color={COLOR_BLUE}
+            onButtonClick={handleRangeReset}
+          ></CIconButton>
+          <CIconButton
+            icon={<IoIosArrowBack />}
+            color={COLOR_BLUE}
+            onButtonClick={handlePreviousMonth}
+          ></CIconButton>
+          <CIconButton
+            icon={<IoIosArrowForward />}
+            color={COLOR_BLUE}
+            onButtonClick={handleNextMonth}
+          ></CIconButton>
+        </Box>
+      </Toolbar>
+      <Box sx={{ height: "90%", pb: 4, pt: 2, px: 4 }}>
         <Bar options={chartOptions} data={chartData}></Bar>
       </Box>
     </Paper>

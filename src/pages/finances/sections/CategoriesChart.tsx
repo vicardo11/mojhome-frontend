@@ -69,35 +69,33 @@ const IncomeExpenseChart = ({ data }: { data: FinanceRecord[] }) => {
   }
 
   return (
-    <Paper sx={{ width: "100%", mb: 3 }}>
-      <Box>
-        <Toolbar sx={{ pl: { sm: 2 }, pt: 3, pb: 4 }}>
-          <Typography sx={{ flex: "1 1 100%" }} variant="h5" component="div" color={COLOR_BLUE}>
-            Categories
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              fontSize: 25,
-              color: COLOR_BLUE,
-              placeItems: "center",
-            }}
-          >
-            <CIconButton
-              icon={<IoIosArrowBack />}
-              color={COLOR_BLUE}
-              onButtonClick={handleTypeChange}
-            ></CIconButton>
-            <Typography>{type}</Typography>
-            <CIconButton
-              icon={<IoIosArrowForward />}
-              color={COLOR_BLUE}
-              onButtonClick={handleTypeChange}
-            ></CIconButton>
-          </Box>
-        </Toolbar>
-      </Box>
-      <Box sx={{ pb: 4, pt: 2, px: 4 }}>
+    <Paper sx={{ width: "100%", height: "300px", mb: 3 }}>
+      <Toolbar sx={{ height: "10%", pl: { sm: 2 }, pt: 3, pb: 4 }}>
+        <Typography sx={{ flex: "1 1 100%" }} variant="h5" component="div" color={COLOR_BLUE}>
+          Categories
+        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            fontSize: 25,
+            color: COLOR_BLUE,
+            placeItems: "center",
+          }}
+        >
+          <CIconButton
+            icon={<IoIosArrowBack />}
+            color={COLOR_BLUE}
+            onButtonClick={handleTypeChange}
+          ></CIconButton>
+          <Typography>{type}</Typography>
+          <CIconButton
+            icon={<IoIosArrowForward />}
+            color={COLOR_BLUE}
+            onButtonClick={handleTypeChange}
+          ></CIconButton>
+        </Box>
+      </Toolbar>
+      <Box sx={{ height: "90%", pb: 4, pt: 2, px: 4 }}>
         <Pie options={chartOptions} data={chartData}></Pie>
       </Box>
     </Paper>
