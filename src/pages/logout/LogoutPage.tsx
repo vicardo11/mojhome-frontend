@@ -1,18 +1,17 @@
-import { useEffect, useRef } from "react";
-import { useAuth } from "react-oidc-context";
+import { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { getAuth } from "firebase/auth";
+import { useCookies } from "react-cookie";
 
 const LogoutPage = () => {
-  // Without initialized auth.signoutPopup() will be called twice in dev mode (StrictMode issue)
-  const initialized = useRef(false);
-  const auth = useAuth();
+  const [cookies, setCookie] = useCookies(["token"]);
+  const auth = getAuth();
 
   useEffect(() => {
-    if (!initialized.current) {
-      initialized.current = true;
-      auth.signoutRedirect();
-    }
-  }, [auth]);
+    auth.signOut().then(() => {
+      setCookie("token", "", { maxAge: 0 });
+    });
+  });
 
   return <Navigate to={"/"} />;
 };

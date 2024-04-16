@@ -1,11 +1,11 @@
 import axios from "axios";
-import { useAuth } from "react-oidc-context";
+import { useCookies } from "react-cookie";
 
 const useAxios = () => {
-  const auth = useAuth();
+  const [cookies, setCookie] = useCookies(["token"]);
   return axios.create({
     headers: {
-      Authorization: "Bearer " + auth.user?.access_token,
+      Authorization: "Bearer " + cookies.token,
     },
   });
 };

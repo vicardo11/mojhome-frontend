@@ -4,6 +4,7 @@ import SettingsPage from "../pages/settings/SettingsPage";
 import React from "react";
 import ReportBugPage from "../pages/report-bug/ReportBugPage";
 import LogoutPage from "../pages/logout/LogoutPage";
+import LoginPage from "../pages/login/LoginPage";
 
 export const ROUTES: RouteModel[] = [
   {
@@ -40,6 +41,13 @@ export const ROUTES: RouteModel[] = [
     path: "/logout",
     component: LogoutPage,
     private: true,
+  },
+  {
+    id: 6,
+    title: "Login",
+    path: "/login",
+    component: LoginPage,
+    private: false,
   },
 ];
 

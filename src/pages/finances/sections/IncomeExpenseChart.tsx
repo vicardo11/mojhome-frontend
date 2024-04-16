@@ -1,7 +1,7 @@
 import { FinanceRecord } from "../model/FinanceRecord";
 import { COLOR_BLUE, COLOR_GREEN, COLOR_RED } from "../../../constants/Colors";
 import { Box, Paper, Toolbar, Typography } from "@mui/material";
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Bar } from "react-chartjs-2";
 import { FinanceType } from "../../../types/FinanceType";
 import { getFinanceDataByType } from "../service/FinanceChartService";

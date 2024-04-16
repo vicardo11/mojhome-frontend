@@ -6,19 +6,27 @@ import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import "./styles/_index.scss";
-import { AuthProvider } from "react-oidc-context";
 import { createTheme, ThemeProvider } from "@mui/material";
+import { initializeApp } from "firebase/app";
+import { getAuth } from "firebase/auth";
+import { CookiesProvider } from "react-cookie";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
-const oidcConfig = {
-  authority: "http://localhost:8100/auth/realms/mojhome",
-  client_id: "mojhome-frontend",
-  redirect_uri: "http://localhost:3000/",
-  post_logout_redirect_uri: "http://localhost:3000/",
-  scope: "microprofile-jwt",
-  automaticSilentRenew: true,
+const firebaseConfig = {
+  apiKey: "AIzaSyDVtPa6ZNiP-mkGm3jsT8cwo3LTYzoAHtE",
+  authDomain: "mojhome-f0f0a.firebaseapp.com",
+  projectId: "mojhome-f0f0a",
+  storageBucket: "mojhome-f0f0a.appspot.com",
+  messagingSenderId: "626806674671",
+  appId: "1:626806674671:web:60cebc05d7e28899d7b71a",
 };
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+
+// Initialize Firebase Authentication and export a reference to the service
+export const auth = getAuth(app);
 
 declare module "@mui/material/styles" {
   interface BreakpointOverrides {
@@ -40,11 +48,11 @@ const theme = createTheme({
 });
 
 root.render(
-  <AuthProvider {...oidcConfig}>
+  <CookiesProvider>
     <ThemeProvider theme={theme}>
       <StrictMode>
         <App />
       </StrictMode>
     </ThemeProvider>
-  </AuthProvider>,
+  </CookiesProvider>,
 );
