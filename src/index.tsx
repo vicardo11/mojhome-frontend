@@ -14,7 +14,7 @@ import { CookiesProvider } from "react-cookie";
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDVtPa6ZNiP-mkGm3jsT8cwo3LTYzoAHtE",
+  apiKey: process.env.VERCEL_API_KEY,
   authDomain: "mojhome-f0f0a.firebaseapp.com",
   projectId: "mojhome-f0f0a",
   storageBucket: "mojhome-f0f0a.appspot.com",
