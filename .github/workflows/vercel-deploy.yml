@@ -1,5 +1,8 @@
 name: Vercel Deploy
 
+env:
+  CI: false
+
 on:
   workflow_dispatch
 
