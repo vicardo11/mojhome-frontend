@@ -15,8 +15,8 @@ const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement)
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_VERCEL_API_KEY,
-  authDomain: "mojhome-f0f0a.firebaseapp.com",
-  projectId: "mojhome-f0f0a",
+  authDomain: process.env.REACT_APP_VERCEL_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_VERCEL_PROJECT_ID,
   storageBucket: "mojhome-f0f0a.appspot.com",
   messagingSenderId: "626806674671",
   appId: "1:626806674671:web:60cebc05d7e28899d7b71a",
